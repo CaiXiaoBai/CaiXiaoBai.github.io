@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>Linux下更新git版本</title>
+	<title>Mac下Anaconda的安装和使用</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《Linux下更新git版本》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《Mac下Anaconda的安装和使用》</p>
 			
 		
 	
@@ -158,8 +158,8 @@
 					
 					
 	
-		<a href="/2018/11/16/Linux下更新git版本/" itemprop="url">		
-			Linux下更新git版本		
+		<a href="/2018/11/28/Mac下Anaconda的安装和使用/" itemprop="url">		
+			Mac下Anaconda的安装和使用		
 		</a>
 	
 
@@ -168,9 +168,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2018/11/16/Linux下更新git版本/" itemprop="url">
-	<time datetime="2018-11-16T15:17:40.000Z" itemprop="datePublished">
-  		2018-11-16
+						<a href="/2018/11/28/Mac下Anaconda的安装和使用/" itemprop="url">
+	<time datetime="2018-11-28T12:58:10.000Z" itemprop="datePublished">
+  		2018-11-28
   </time>
 </a>    
 &nbsp;
@@ -180,9 +180,7 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#linux" title="linux" rel="2">linux</a>&nbsp;
-							
-								<a href="#git" title="git" rel="1">git</a>&nbsp;
+								<a href="#Anaconda" title="Anaconda" rel="1">Anaconda</a>&nbsp;
 													 											
 						
 					</span>
@@ -192,11 +190,83 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<h5 id="查看git版本，卸载旧版本（如果没有安装git请直接到下一步）"><a href="#查看git版本，卸载旧版本（如果没有安装git请直接到下一步）" class="headerlink" title="查看git版本，卸载旧版本（如果没有安装git请直接到下一步）"></a>查看git版本，卸载旧版本（如果没有安装git请直接到下一步）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line">yum remove git</span><br></pre></td></tr></table></figure>
-<h5 id="安装依赖软件"><a href="#安装依赖软件" class="headerlink" title="安装依赖软件"></a>安装依赖软件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc</span><br><span class="line">yum install  gcc perl-ExtUtils-MakeMaker</span><br></pre></td></tr></table></figure>
-<h5 id="编译安装最新的git版本"><a href="#编译安装最新的git版本" class="headerlink" title="编译安装最新的git版本"></a>编译安装最新的git版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src/</span><br><span class="line">wget -O git.zip https://github.com/git/git/archive/master.zip</span><br><span class="line">unzip git.zip</span><br><span class="line">cd git-master</span><br><span class="line">make prefix=/usr/local/git all</span><br><span class="line">make prefix=/usr/local/git install</span><br></pre></td></tr></table></figure>
-<h5 id="添加到环境变量"><a href="#添加到环境变量" class="headerlink" title="添加到环境变量"></a>添加到环境变量</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;export PATH=$PATH:/usr/local/git/bin&quot; &gt;&gt; ~/.bashrc</span><br><span class="line">source ~/.bashrc</span><br><span class="line">git --version</span><br></pre></td></tr></table></figure>
-<p>好了最新的git就装好了。</p>
+						<h4 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h4><p>在刚接触python的时候我想大多数人都会面临一个问题，我到底是选择2还是3，因为现在网上好多的资料和视频项目中都还是用的2，我们跟着学习的时候肯定也是首先从2开始学的，但是我们心里肯定也担心学2会不会跟不上技术的发展，毕竟3才是最新的，而且将来的项目势必也都会逐渐去支持最新的3，这个时候我们就有了既需要一个2的环境来学习以前的一些项目来入门，也需要3的环境来跟上最新的技术，这个时候就需要一个强大的python环境管理工具了，可以在电脑上同时搭建两套环境，并且可以在两个环境之间来回切换而不受对方的影响，Anaconda就是你需要的。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>好了，下面就是正式的安装了，首先我们需要去<a href="https://www.anaconda.com/download/#macos" target="_blank" rel="noopener">Anaconda官网</a>下载，你可以下载图形安装包，也可以下载命令行安装文件。</p>
+<p>图形安装包安装方式就像安装软件那样根据提示下一步就可以了。</p>
+<p>命令行安装方式是打开终端，执行下面的命令</p>
+<ul>
+<li><p>Python2.7版本的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh  //python2版本</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Python3.7版本的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh  //python3版本</span><br></pre></td></tr></table></figure>
+<p>后边跟的是你安装文件的目录</p>
+</li>
+</ul>
+<p>安装过程中，看到提示“In order to continue the installation process, please review the license agreement.”（“请浏览许可证协议以便继续安装。”），点击“Enter”查看“许可证协议”。</p>
+<p>然后滚动屏幕到最下方，带边已经看完了协议了，然后输入”yes”表示同意协议，然后安装继续</p>
+<p>然后看到提示“Press Enter to confirm the location, Press CTRL-C to cancel the installation or specify an alternate installation directory.”（“按回车键确认安装路径，按’CTRL-C’取消安装或者指定安装目录。”）如果接受默认安装路径，则会显示“PREFIX=/home/<user>/anaconda<2 3="" or="">”并且继续安装。安装过程大约需要几分钟的时间。这里建议直接使用木人安装路径就可以了。</2></user></p>
+<p>然后你会看到提示“Do you wish the installer to prepend the Anaconda install location to PATH in your /home/<user>/.bash_profile ?”（“你希望安装器添加Anaconda安装路径在<code>/home/&lt;user&gt;/.bash_profile</code>文件中吗？”），这里是说你希望自动添加环境变量到.bash_profile文件中，输入“yes”，就会自己帮你添加，如果输入”no”，则需要你自己手动添加，这里直接“yes”就好。</user></p>
+<p>最好看到”Thank you for installing Anaconda!”就安装完成了。</p>
+<p>然后你source一下或者重启终端使新加的环境变量生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h4 id="常用的命令"><a href="#常用的命令" class="headerlink" title="常用的命令"></a>常用的命令</h4><ul>
+<li><p>查看conda版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新conda版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda update conda</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看都安装了那些依赖库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建新的python环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create --name myenv</span><br></pre></td></tr></table></figure>
+<p>并且还可以指定python的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n myenv python=3.7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建新环境并指定包含的库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n myenv scipy</span><br></pre></td></tr></table></figure>
+<p>并且还可以指定库的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n myenv scipy=0.15.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create --name myclone --clone myenv</span><br></pre></td></tr></table></figure>
+<p>查看是不是复制成功了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda info --envs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>激活、进入某个环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source activate myenv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>退出环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source deactivate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda remove --name myenv --all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前的环境列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ conda info --envs</span><br><span class="line">or</span><br><span class="line">$ conda env list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看某个环境下安装的库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda list -n myenv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda search XXX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install XXX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda update XXX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda remove XXX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装到指定环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install -n myenv XXX</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>好以上就是Anaconda的安装和基本的使用了。</p>
 <hr>
 <p>欢迎关注我的公众号</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxdo2irr2kj308c08b3zp.jpg" alt="扫码"></p>
@@ -208,13 +278,13 @@
 
 		<ul class="am-pagination">
     
-    	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2018/11/17/hexo-github搭建个人博客/" title="hexo+github搭建个人博客">
-      		&laquo; 上一篇
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2018/11/18/Flume的介绍和简单操作/" title="Flume的介绍和简单操作">
+			下一篇 &raquo;
 		</a>
 		</li>
-	
-	
+	 
  </ul>
         
 
@@ -339,7 +409,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#查看git版本，卸载旧版本（如果没有安装git请直接到下一步）"><span class="post-toc-text">查看git版本，卸载旧版本（如果没有安装git请直接到下一步）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#安装依赖软件"><span class="post-toc-text">安装依赖软件</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#编译安装最新的git版本"><span class="post-toc-text">编译安装最新的git版本</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#添加到环境变量"><span class="post-toc-text">添加到环境变量</span></a></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#前提"><span class="post-toc-text">前提</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装"><span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常用的命令"><span class="post-toc-text">常用的命令</span></a></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</div></div></aside>
