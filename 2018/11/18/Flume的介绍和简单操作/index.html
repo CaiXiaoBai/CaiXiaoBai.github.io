@@ -61,7 +61,7 @@
 	
 	<!-- others: such as change-bg, time... -->
 	<p class="page-name-other">
-		11/28/2018 
+		12/1/2018 
 		<style type="text/css">
 	header:after {
 		content: '';
@@ -245,7 +245,7 @@
 <p>发现是slave1收到数据，然后我们把slave1的agent关掉，再次发送日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//master</span><br><span class="line">(py27) [root@master test_data]# echo &apos;11111&apos; &gt;&gt; exec.log      </span><br><span class="line">//slave2</span><br><span class="line">18/10/25 10:43:00 INFO ipc.NettyServer: [id: 0x8da012e3, /172.16.155.120:39726 =&gt; /172.16.155.122:52020] CONNECTED: /172.16.155.120:39726</span><br><span class="line">18/10/25 10:56:53 INFO sink.LoggerSink: Event: &#123; headers:&#123;&#125; body: 31 31 31 31 31                                  11111 &#125;</span><br></pre></td></tr></table></figure></p>
 <p>然后再次启动slave1的agent<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//master</span><br><span class="line">(py27) [root@master test_data]# echo &apos;22222&apos; &gt;&gt; exec.log      </span><br><span class="line">//slave1</span><br><span class="line">18/10/25 10:58:21 INFO sink.LoggerSink: Event: &#123; headers:&#123;&#125; body: 32 32 32 32 32                                  22222 &#125;</span><br><span class="line">//slave2</span><br><span class="line">18/10/25 10:43:00 INFO ipc.NettyServer: [id: 0x8da012e3, /172.16.155.120:39726 =&gt; /172.16.155.122:52020] CONNECTED: /172.16.155.120:39726</span><br><span class="line">18/10/25 10:56:53 INFO sink.LoggerSink: Event: &#123; headers:&#123;&#125; body: 31 31 31 31 31                                  11111 &#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
-<p>欢迎关注公众号</p>
+<p>欢迎关注公众号：「努力给自己看」</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/944288-cdf54c296b73b67a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="扫码.png"></p>
 
 					

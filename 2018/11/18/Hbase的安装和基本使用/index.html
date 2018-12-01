@@ -61,7 +61,7 @@
 	
 	<!-- others: such as change-bg, time... -->
 	<p class="page-name-other">
-		11/28/2018 
+		12/1/2018 
 		<style type="text/css">
 	header:after {
 		content: '';
@@ -274,7 +274,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from thrift.transport import TSocket</span><br><span class="line">from thrift.protocol import TBinaryProtocol</span><br><span class="line"></span><br><span class="line">from hbase import Hbase</span><br><span class="line">from hbase.ttypes import *</span><br><span class="line"></span><br><span class="line">transport = TSocket.TSocket(&apos;master&apos;, 9090)</span><br><span class="line">transport = TTransport.TBufferedTransport(transport)</span><br><span class="line"></span><br><span class="line">protocol = TBinaryProtocol.TBinaryProtocol(transport)</span><br><span class="line"></span><br><span class="line">client = Hbase.Client(protocol)</span><br><span class="line"></span><br><span class="line">transport.open()</span><br><span class="line"></span><br><span class="line">table_name = &apos;tableName&apos;</span><br><span class="line"></span><br><span class="line">scan = TScan()</span><br><span class="line"></span><br><span class="line">id = client.scannerOpenWithScan(table_name,scan,None)</span><br><span class="line">result = client.scannerGetList(id,10)</span><br><span class="line"></span><br><span class="line">for l in result:</span><br><span class="line">    print &quot;=========&quot;</span><br><span class="line">    print &quot;the row is &quot;+ l.row</span><br><span class="line">    for k,v in l.columns.items():</span><br><span class="line">        print &apos;\t&apos;.join([k,v.value])</span><br></pre></td></tr></table></figure>
 <hr>
-<p>欢迎关注公众号</p>
+<p>欢迎关注公众号：「努力给自己看」</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/944288-cdf54c296b73b67a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="扫码.png"></p>
 
 					
