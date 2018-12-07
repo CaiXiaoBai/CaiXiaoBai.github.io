@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>Mac下Anaconda的安装和使用</title>
+	<title>学习笔记—MapReduce</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《Mac下Anaconda的安装和使用》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《学习笔记—MapReduce》</p>
 			
 		
 	
@@ -158,8 +158,8 @@
 					
 					
 	
-		<a href="/2018/11/28/Mac下Anaconda的安装和使用/" itemprop="url">		
-			Mac下Anaconda的安装和使用		
+		<a href="/2018/12/07/学习笔记—MapReduce/" itemprop="url">		
+			学习笔记—MapReduce		
 		</a>
 	
 
@@ -168,9 +168,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2018/11/28/Mac下Anaconda的安装和使用/" itemprop="url">
-	<time datetime="2018-11-28T12:58:10.000Z" itemprop="datePublished">
-  		2018-11-28
+						<a href="/2018/12/07/学习笔记—MapReduce/" itemprop="url">
+	<time datetime="2018-12-07T15:27:12.000Z" itemprop="datePublished">
+  		2018-12-07
   </time>
 </a>    
 &nbsp;
@@ -180,7 +180,9 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#Anaconda" title="Anaconda" rel="1">Anaconda</a>&nbsp;
+								<a href="#大数据" title="大数据" rel="3">大数据</a>&nbsp;
+							
+								<a href="#MapReduce" title="MapReduce" rel="1">MapReduce</a>&nbsp;
 													 											
 						
 					</span>
@@ -190,86 +192,46 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<h4 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h4><p>在刚接触python的时候我想大多数人都会面临一个问题，我到底是选择2还是3，因为现在网上好多的资料和视频项目中都还是用的2，我们跟着学习的时候肯定也是首先从2开始学的，但是我们心里肯定也担心学2会不会跟不上技术的发展，毕竟3才是最新的，而且将来的项目势必也都会逐渐去支持最新的3，这个时候我们就有了既需要一个2的环境来学习以前的一些项目来入门，也需要3的环境来跟上最新的技术，就需要一个强大的python环境管理工具了，可以在电脑上同时搭建两套环境，并且可以在两个环境之间来回切换而不受对方的影响，Anaconda就是你需要的。</p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>好了，下面就是正式的安装了，首先我们需要去<a href="https://www.anaconda.com/download/#macos" target="_blank" rel="noopener">Anaconda官网</a>下载，你可以下载图形安装包，也可以下载命令行安装文件。</p>
-<p>图形安装包安装方式就像安装软件那样根据提示下一步就可以了。</p>
-<p>命令行安装方式是打开终端，执行下面的命令</p>
+						<h4 id="MapReduce是什么"><a href="#MapReduce是什么" class="headerlink" title="MapReduce是什么"></a>MapReduce是什么</h4><p>MapReduce是一种分布式计算编程框架，是Hadoop主要组成部分之一，可以让用户专注于编写核心逻辑代码，最后以高可靠、高容错的方式在大型集群上并行处理大量数据。</p>
+<h4 id="MapReduce的存储"><a href="#MapReduce的存储" class="headerlink" title="MapReduce的存储"></a>MapReduce的存储</h4><p>MapReduce的数据是存储在HDFS上的，HDFS也是Hadoop的主要组成部分之一。下边是MapReduce在HDFS上的存储的图解</p>
+<p><img src="http://hadoop.apache.org/docs/r3.1.1/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png" alt="HDFS Architecture"></p>
+<p>HDFS主要有Namenode和Datanode两部分组成，整个集群有一个Namenode和多个DataNode，通常每一个节点一个DataNode，Namenode的主要功能是用来管理客户端client对数据文件的操作请求和储存数据文件的地址。DataNode主要是用来储存和管理本节点的数据文件。节点内部数据文件被分为一个或多个block块（block默认大小原来是64MB，后来变为128MB），然后这些块储存在一组DataNode中。（这里不对HDFS做过多的介绍，后续会写一篇详细的HDFS笔记）</p>
+<h4 id="MapReduce的运行流程"><a href="#MapReduce的运行流程" class="headerlink" title="MapReduce的运行流程"></a>MapReduce的运行流程</h4><p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fxw93ewkoej31720g4tfx.jpg" alt="屏幕快照 2018-12-05 下午10.43.38"></p>
+<p><img src="/2018/12/07/学习笔记—MapReduce/Users/majun/Desktop/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-12-05%20%E4%B8%8B%E5%8D%8810.56.38.png" alt="屏幕快照 2018-12-05 下午10.56.38"></p>
+<p>1、首先把需要处理的数据文件上传到HDFS上，然后这些数据会被分为好多个小的分片，然后每个分片对应一个map任务，推荐情况下分片的大小等于block块的大小。然后map的计算结果会暂存到一个内存缓冲区内，该缓冲区默认为100M，等缓存的数据达到一个阈值的时候，默认情况下是80%，然后会在磁盘创建一个文件，开始向文件里边写入数据。</p>
+<p>2、map任务的输入数据的格式是&lt;key,value&gt;对的形式，我们也可以自定义自己的&lt;key,value&gt;类型。然后map在往内存缓冲区里写入数据的时候会根据key进行排序，同样溢写到磁盘的文件里的数据也是排好序的，最后map任务结束的时候可能会产生多个数据文件，然后把这些数据文件再根据归并排序合并成一个大的文件。</p>
+<p>3、然后每个分片都会经过map任务后产生一个排好序的文件，同样文件的格式也是&lt;key,value&gt;对的形式，然后通过对key进行hash的方式把数据分配到不同的reduce里边去，这样对每个分片的数据进行hash，再把每个分片分配过来的数据进行合并，合并过程中也是不断进行排序的。最后数据经过reduce任务的处理就产生了最后的输出。</p>
+<p>4、在我们开发中只需要对中间map和reduce的逻辑进行开发就可以了，中间分片，排序，合并，分配都有MapReduce框架帮我完成了。</p>
+<h4 id="MapReduce的资源调度系统"><a href="#MapReduce的资源调度系统" class="headerlink" title="MapReduce的资源调度系统"></a>MapReduce的资源调度系统</h4><p>最后我们来看一下MapReduce的资源调度系统Yarn。</p>
+<p><img src="http://hadoop.apache.org/docs/r3.1.1/hadoop-yarn/hadoop-yarn-site/yarn_architecture.gif" alt="MapReduce NextGenæ¶æ"></p>
+<p>Yarn的基本思想是将资源管理和作业调度/监视的功能分解为单独的守护进程。全局唯一的ResourceManager是负责所有应用程序之间的资源的调度和分配，每个程序有一个ApplicationMaster，ApplicationMaster实际上是一个特定于框架的库，其任务是协调来自ResourceManager的资源，并与NodeManager一起执行和监视任务。NodeManager是每台机器框架代理，监视其资源使用情况（CPU，内存，磁盘，网络）并将其报告给ResourceManager。</p>
+<h4 id="WordConut代码"><a href="#WordConut代码" class="headerlink" title="WordConut代码"></a>WordConut代码</h4><ul>
+<li>python实现</li>
+</ul>
+<p>map.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">    words = line.strip().split()</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> words:</span><br><span class="line">        print(<span class="string">'%s\t%s'</span> % (word, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p>reduce.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">current_word = <span class="keyword">None</span></span><br><span class="line">sum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">    word, count = line.strip().split(<span class="string">' '</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> current_word == <span class="keyword">None</span>:</span><br><span class="line">        current_word = word</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> word != current_word:</span><br><span class="line">        print(<span class="string">'%s\t%s'</span> % (current_word, sum))</span><br><span class="line">        current_word = word</span><br><span class="line">        sum = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    sum += int(count)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'%s\t%s'</span> % (current_word, sum))</span><br></pre></td></tr></table></figure>
+<p>我们先把输入文件上传到HDFS上去</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -put /input.txt /</span><br></pre></td></tr></table></figure>
+<p>​    然后在Linux下运行，为了方便我们把命令写成了shell文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">HADOOP_CMD="/usr/local/src/hadoop-2.6.1/bin/hadoop"</span><br><span class="line">STREAM_JAR_PATH="/usr/local/src/hadoop-2.6.1/share/hadoop/tools/lib/hadoop-streaming-2.6.1.jar"</span><br><span class="line"></span><br><span class="line">INPUT_FILE_PATH="/input.txt"</span><br><span class="line">OUTPUT_FILE_PATH="/output"</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span>HADOOP_CMD fs -rmr -skipTrush $OUTPUT_FILE_PATH</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span>HADOOP_CMD jar $STREAM_JAR_PATH \</span><br><span class="line">	-input $INPUT_FILE_PATH \</span><br><span class="line">	-output $OUTPUT_FILE_PATH \</span><br><span class="line">	-mapper "python map.py" \</span><br><span class="line">	-reducer "python reduce.py" \</span><br><span class="line">	-file "./map.py" \</span><br><span class="line">	-file "./reduce.py"</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>Python2.7版本的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh  //python2版本</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Python3.7版本的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bash ~/Downloads/Anaconda3-5.3.1-MacOSX-x86_64.sh  //python3版本</span><br></pre></td></tr></table></figure>
-<p>后边跟的是你安装文件的目录</p>
-</li>
+<li>java实现</li>
 </ul>
-<p>安装过程中，看到提示“In order to continue the installation process, please review the license agreement.”（“请浏览许可证协议以便继续安装。”），点击“Enter”查看“许可证协议”。</p>
-<p>然后滚动屏幕到最下方，带边已经看完了协议了，然后输入”yes”表示同意协议，然后安装继续</p>
-<p>然后看到提示“Press Enter to confirm the location, Press CTRL-C to cancel the installation or specify an alternate installation directory.”（“按回车键确认安装路径，按’CTRL-C’取消安装或者指定安装目录。”）如果接受默认安装路径，则会显示“PREFIX=/home/<user>/anaconda<2 3="" or="">”并且继续安装。安装过程大约需要几分钟的时间。这里建议直接使用木人安装路径就可以了。</2></user></p>
-<p>然后你会看到提示“Do you wish the installer to prepend the Anaconda install location to PATH in your /home/<user>/.bash_profile ?”（“你希望安装器添加Anaconda安装路径在<code>/home/&lt;user&gt;/.bash_profile</code>文件中吗？”），这里是说你希望自动添加环境变量到.bash_profile文件中，输入“yes”，就会自己帮你添加，如果输入”no”，则需要你自己手动添加，这里直接“yes”就好。</user></p>
-<p>最好看到”Thank you for installing Anaconda!”就安装完成了。</p>
-<p>然后你source一下或者重启终端使新加的环境变量生效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<h4 id="常用的命令"><a href="#常用的命令" class="headerlink" title="常用的命令"></a>常用的命令</h4><ul>
-<li><p>查看conda版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda --version</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>更新conda版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda update conda</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看都安装了那些依赖库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda list</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建新的python环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create --name myenv</span><br></pre></td></tr></table></figure>
-<p>并且还可以指定python的版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n myenv python=3.7</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建新环境并指定包含的库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n myenv scipy</span><br></pre></td></tr></table></figure>
-<p>并且还可以指定库的版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create -n myenv scipy=0.15.0</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>复制环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda create --name myclone --clone myenv</span><br></pre></td></tr></table></figure>
-<p>查看是不是复制成功了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda info --envs</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>激活、进入某个环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source activate myenv</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source deactivate</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda remove --name myenv --all</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看当前的环境列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ conda info --envs</span><br><span class="line">or</span><br><span class="line">$ conda env list</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看某个环境下安装的库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda list -n myenv</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查找包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda search XXX</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install XXX</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>更新包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda update XXX</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda remove XXX</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装到指定环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ conda install -n myenv XXX</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>好以上就是Anaconda的安装和基本的使用了。</p>
+<p>MyMap.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMap</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> IntWritable one = <span class="keyword">new</span> IntWritable(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">private</span> Text text = <span class="keyword">new</span> Text();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        String line = value.toString();</span><br><span class="line">        String[] words = line.split(<span class="string">" "</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String word: words)&#123;</span><br><span class="line">            text.set(word);</span><br><span class="line">            context.write(text,one);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MyReduce.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Reducer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyReduce</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IntWritable result = <span class="keyword">new</span> IntWritable();</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (IntWritable i:values)&#123;</span><br><span class="line">            sum+=i.get();</span><br><span class="line">        &#125;</span><br><span class="line">        result.set(sum);</span><br><span class="line">        context.write(key,result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WordCount.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.IntWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WordCount</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">        Job job = Job.getInstance(configuration, <span class="string">"WordCount"</span>);</span><br><span class="line">        job.setJarByClass(WordCount.class);</span><br><span class="line">        job.setMapperClass(MyMap.class);</span><br><span class="line">        job.setReducerClass(MyReduce.class);</span><br><span class="line">        job.setOutputKeyClass(Text.class);</span><br><span class="line">        job.setOutputValueClass(IntWritable.class);</span><br><span class="line">        FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]));</span><br><span class="line">        FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(args[<span class="number">1</span>]));</span><br><span class="line">        System.exit(job.waitForCompletion(<span class="keyword">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把工程打成jar包，然后把jar包和输入文件上传到HDfs</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> hadoop fs -put /wordcount.jar /</span><br><span class="line"><span class="meta">$</span> hadoop fs -put /input.txt /</span><br></pre></td></tr></table></figure>
+<p>执行wordcount任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> bin/hadoop jar wordcount.jar WordCount /input.txt /user/joe/wordcount/output</span><br></pre></td></tr></table></figure>
 <hr>
 <p>欢迎关注公众号：「努力给自己看」</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxdo2irr2kj308c08b3zp.jpg" alt="扫码"></p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxr3rttfbgj308c08b3zp.jpg" alt="扫码"></p>
 
 					
 				</div>
@@ -278,15 +240,9 @@
 
 		<ul class="am-pagination">
     
-    	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2018/12/01/hexo博客更换主题/" title="hexo博客更换主题">
-      		&laquo; 上一篇
-		</a>
-		</li>
-	
 	
 		<li class="am-pagination-next">
-		<a class="pull-right" href="/2018/11/18/Flume的介绍和简单操作/" title="Flume的介绍和简单操作">
+		<a class="pull-right" href="/2018/12/01/hexo博客更换主题/" title="hexo博客更换主题">
 			下一篇 &raquo;
 		</a>
 		</li>
@@ -415,7 +371,7 @@
 				
 				
 				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#前提"><span class="post-toc-text">前提</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装"><span class="post-toc-text">安装</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#常用的命令"><span class="post-toc-text">常用的命令</span></a></li></ol>
+				<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce是什么"><span class="post-toc-text">MapReduce是什么</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce的存储"><span class="post-toc-text">MapReduce的存储</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce的运行流程"><span class="post-toc-text">MapReduce的运行流程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#MapReduce的资源调度系统"><span class="post-toc-text">MapReduce的资源调度系统</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#WordConut代码"><span class="post-toc-text">WordConut代码</span></a></li></ol>
 			</nav>
 			<div class="post-toc-bar"><div>
 		</div></div></aside>
