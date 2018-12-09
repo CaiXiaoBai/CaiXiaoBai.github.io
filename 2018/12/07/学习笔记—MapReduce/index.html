@@ -61,7 +61,7 @@
 	
 	<!-- others: such as change-bg, time... -->
 	<p class="page-name-other">
-		12/7/2018 
+		12/9/2018 
 		<style type="text/css">
 	header:after {
 		content: '';
@@ -180,7 +180,7 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#大数据" title="大数据" rel="3">大数据</a>&nbsp;
+								<a href="#大数据" title="大数据" rel="4">大数据</a>&nbsp;
 							
 								<a href="#MapReduce" title="MapReduce" rel="1">MapReduce</a>&nbsp;
 													 											
@@ -197,7 +197,7 @@
 <p><img src="http://hadoop.apache.org/docs/r3.1.1/hadoop-project-dist/hadoop-hdfs/images/hdfsarchitecture.png" alt="HDFS Architecture"></p>
 <p>HDFS主要有Namenode和Datanode两部分组成，整个集群有一个Namenode和多个DataNode，通常每一个节点一个DataNode，Namenode的主要功能是用来管理客户端client对数据文件的操作请求和储存数据文件的地址。DataNode主要是用来储存和管理本节点的数据文件。节点内部数据文件被分为一个或多个block块（block默认大小原来是64MB，后来变为128MB），然后这些块储存在一组DataNode中。（这里不对HDFS做过多的介绍，后续会写一篇详细的HDFS笔记）</p>
 <h4 id="MapReduce的运行流程"><a href="#MapReduce的运行流程" class="headerlink" title="MapReduce的运行流程"></a>MapReduce的运行流程</h4><p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fxw93ewkoej31720g4tfx.jpg" alt="屏幕快照 2018-12-05 下午10.43.38"></p>
-<p><img src="/2018/12/07/学习笔记—MapReduce/Users/majun/Desktop/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-12-05%20%E4%B8%8B%E5%8D%8810.56.38.png" alt="屏幕快照 2018-12-05 下午10.56.38"></p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxyltiwrcdj31gg0nw1kx.jpg" alt="屏幕快照 2018-12-05 下午10.56.38"></p>
 <p>1、首先把需要处理的数据文件上传到HDFS上，然后这些数据会被分为好多个小的分片，然后每个分片对应一个map任务，推荐情况下分片的大小等于block块的大小。然后map的计算结果会暂存到一个内存缓冲区内，该缓冲区默认为100M，等缓存的数据达到一个阈值的时候，默认情况下是80%，然后会在磁盘创建一个文件，开始向文件里边写入数据。</p>
 <p>2、map任务的输入数据的格式是&lt;key,value&gt;对的形式，我们也可以自定义自己的&lt;key,value&gt;类型。然后map在往内存缓冲区里写入数据的时候会根据key进行排序，同样溢写到磁盘的文件里的数据也是排好序的，最后map任务结束的时候可能会产生多个数据文件，然后把这些数据文件再根据归并排序合并成一个大的文件。</p>
 <p>3、然后每个分片都会经过map任务后产生一个排好序的文件，同样文件的格式也是&lt;key,value&gt;对的形式，然后通过对key进行hash的方式把数据分配到不同的reduce里边去，这样对每个分片的数据进行hash，再把每个分片分配过来的数据进行合并，合并过程中也是不断进行排序的。最后数据经过reduce任务的处理就产生了最后的输出。</p>
@@ -240,6 +240,12 @@
 
 		<ul class="am-pagination">
     
+    	<li class="am-pagination-prev">
+   		<a class="pull-left" href="/2018/12/09/TF-IDF介绍/" title="TF-IDF介绍">
+      		&laquo; 上一篇
+		</a>
+		</li>
+	
 	
 		<li class="am-pagination-next">
 		<a class="pull-right" href="/2018/12/01/hexo博客更换主题/" title="hexo博客更换主题">
