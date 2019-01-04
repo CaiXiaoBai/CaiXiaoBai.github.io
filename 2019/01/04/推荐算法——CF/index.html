@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>文章归档: 2018/11</title>
+	<title>推荐算法——CF</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,9 +54,8 @@
 		
 		
 			
-			<!-- && is_current('archives/index.html') -->
-			<p class="page-name">文章归档</p>
-		
+			<p class="page-name">当前文章&nbsp;:&nbsp;《推荐算法——CF》</p>
+			
 		
 	
 	
@@ -148,125 +147,320 @@
 		<!-- content srart -->
 <div class="am-g am-g-fixed blog-fixed blog-content">
 	<div class="am-u-md-8 am-u-sm-12">
-		<div class="archive">
 
-			<div class="blog-text-center">
-				
-					<i class="fa fa-book">总计12篇文章</i>
-				
-			</div>  
+		<article class="am-article blog-article-p">
 
-			
+			<div class="am-article-hd">
+				
 
-							
-				
-				
-				
+
+				<h1 class="am-article-title blog-text-center">
 					
-
 					
-					<!--<a href="/archives/2018" class="archive-year">2018</a>-->
-				
-								
-				
-					  
-					<div class="archive-year">
-						<a href="/archives/2018/11">
-							2018-11
-						</a>
-					</div>				
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/11/28/Mac下Anaconda的安装和使用/" itemprop="url">Mac下Anaconda的安装和使用</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/11/28/Mac下Anaconda的安装和使用/" itemprop="url">11-28</a>
-					</div>
-				</div>		        							
+	
+		<a href="/2019/01/04/推荐算法——CF/" itemprop="url">		
+			推荐算法——CF		
+		</a>
+	
+
+				</h1>
+
+				<p class="am-article-meta blog-text-center">
+					<span>
+						<i class="fa fa-clock-o"></i> 
+						<a href="/2019/01/04/推荐算法——CF/" itemprop="url">
+	<time datetime="2019-01-04T13:56:30.000Z" itemprop="datePublished">
+  		2019-01-04
+  </time>
+</a>    
+&nbsp;
+					</span>
+					
+					<span>						
+						
+							<i class="fa fa-tags"></i>
 							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/11/18/Flume的介绍和简单操作/" itemprop="url">Flume的介绍和简单操作</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/11/18/Flume的介绍和简单操作/" itemprop="url">11-18</a>
-					</div>
-				</div>		        							
+								<a href="#推荐算法" title="推荐算法" rel="2">推荐算法</a>&nbsp;
 							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/11/18/Hbase的安装和基本使用/" itemprop="url">Hbase的安装和基本使用</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/11/18/Hbase的安装和基本使用/" itemprop="url">11-18</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/11/18/Linux下安装spf13-vim/" itemprop="url">Linux下安装spf13-vim</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/11/18/Linux下安装spf13-vim/" itemprop="url">11-18</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/11/17/hexo-github搭建个人博客/" itemprop="url">hexo+github搭建个人博客</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/11/17/hexo-github搭建个人博客/" itemprop="url">11-17</a>
-					</div>
-				</div>		        							
-							
-				
-				
-				
-								
-				  
-				
-				<div class="archive-item">
-					<div class="archive-post-title">									
-						<a href="/2018/11/16/Linux下更新git版本/" itemprop="url">Linux下更新git版本</a>
-					</div>
-					<div class="archive-post-time">
-						<a href="/2018/11/16/Linux下更新git版本/" itemprop="url">11-16</a>
-					</div>
-				</div>		        							
-			
-				
-			    
-		</div>
-	</div>
+								<a href="#CF" title="CF" rel="1">CF</a>&nbsp;
+													 											
+						
+					</span>
+				</p>
+			</div>
+
+			<div class="am-article-bd">
+				<div class="content" id="post-content">
+					
+						<p>前边我们已经介绍了推荐算法里的基于内容的推荐算法CB，今天我们来介绍一下基于协同的推荐算法Collaboration Filtering（CF）。协同过滤是一个利用群体智慧的一个算法，举一个简单的例子，如果放假了你想去北京玩几天，但是不知道北京都有哪些好玩的，你会怎么做？你可能会上网查一下网友的推荐，也可能会咨询一下曾经去过北京的亲朋好友，最后你很可能会采纳你好朋友的推荐。因为你的好朋友和你相似的爱好和品味。</p>
+<p>基于协同的推荐算法又分为两种</p>
+<ul>
+<li>User Based CF</li>
+</ul>
+<p>基于当前用户对物品的偏好找到相似偏好的用户，然后把相似偏好用户喜欢的物品推荐给当前用户。例如下图，对于 user1，我们找到了和他有相似偏好的 user3，他们都同时喜欢 Item1 和Item3 ，并且 user3 还喜欢 Item4，我们就可以把 Item4 推荐给 user1。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">user/item</th>
+<th style="text-align:center">Item1</th>
+<th style="text-align:center">Item2</th>
+<th style="text-align:center">Item3</th>
+<th style="text-align:center">Item4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">User1</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">User2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✔️</td>
+</tr>
+<tr>
+<td style="text-align:center">User3</td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✔️</td>
+<td style="text-align:center">✔️</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Item Based CF</li>
+</ul>
+<p>原理和基于用户的类似，只是在计算时基于物品而不是用户，找到和当前用户喜欢的物品相似的物品，然后推荐给当前用户。例如下图，我们发现喜欢 Item1 的用户都喜欢 Item3，并且还有很多也喜欢 Item4，我们就认为 Item1、Item2 和 Item4 比较相似，所以我们就可以把 Item4推荐给 user1。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>user/item</th>
+<th>Item1</th>
+<th>Item2</th>
+<th>Item3</th>
+<th>Item4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User1</td>
+<td>✔️</td>
+<td></td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td>User2</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>User3</td>
+<td>✔️</td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>协同过滤的实现，一般通过以下几个步骤</p>
+<ul>
+<li>收集用户对物品的偏好数据</li>
+</ul>
+<p>通常把用户对物品的行为数据收集起来，然后根据不同的行为数据来标志用户对该物品的喜欢程度，然后根据喜欢程度给物品一个打分。比如说一个电商网站，根据用户的浏览，收藏，加购物车，购买，评论等行为数据来进行打分，标志用户对这个物品的喜爱程度。</p>
+<ul>
+<li>通过计算找到相似的用户或物品</li>
+</ul>
+<p>然后像上边举得两个例子那样，通过一些算法，来找到和该用户有相似偏好的用户，或者找到和该用户喜欢的物品相似的物品。</p>
+<ul>
+<li>然后把相似度较高的n个结果推荐给用户</li>
+</ul>
+<p>最后从得到的推荐列表里挑选分数较高的n个结果推荐给用户</p>
+<p>基于用户和基于物品的协同过滤有各自的优点和不足，我们使用的时候要根据具体的场景和情况来选择合适的来使用。最后来比较一下两者的不同。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">user based</th>
+<th style="text-align:center">item based</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">性能</td>
+<td style="text-align:center">适用用户较少的场合，如果用户数量较多，计算用户相似矩阵代价太大</td>
+<td style="text-align:center">适用于物品数量明显小于用户数量的场合，如果物品很多，计算物品的相似矩阵代价太大</td>
+</tr>
+<tr>
+<td style="text-align:center">领域</td>
+<td style="text-align:center">时效性强，用户个性化兴趣不太明显的领域</td>
+<td style="text-align:center">长尾物品丰富，用户个性化需求较强的领域</td>
+</tr>
+<tr>
+<td style="text-align:center">实时性</td>
+<td style="text-align:center">用户有新行为，不一定造成推荐结果立即变化</td>
+<td style="text-align:center">用户有新行为，一定会导致推荐结果的变化</td>
+</tr>
+<tr>
+<td style="text-align:center">冷启动</td>
+<td style="text-align:center">在新用户对很少的物品产生行为后，不能马上对他进行个性化推荐，因为用户相似度表是每隔一段时间离线计算的。新物品上线后，一旦有用户对它产生行为，就可以把该物品推荐给和该用户有相似偏好的其他用户</td>
+<td style="text-align:center">新用户只要对一个物品产生行为，就可以给他推荐和该物品相似的其他物品，但是没办法在不离线更新新物品相似度表的情况下把新物品推荐给用户</td>
+</tr>
+<tr>
+<td style="text-align:center">推荐理由</td>
+<td style="text-align:center">很难提供令用户信服的推荐解释</td>
+<td style="text-align:center">利用用户的历史行为给用户做推荐解释，可以令用户比较信服</td>
+</tr>
+</tbody>
+</table>
 </div>
 
+					
+				</div>
+			</div>
+		</article>
+
+		<ul class="am-pagination">
+    
+	
+		<li class="am-pagination-next">
+		<a class="pull-right" href="/2019/01/04/推荐算法——基于内容的推荐CB/" title="推荐算法——基于内容的推荐CB">
+			下一篇 &raquo;
+		</a>
+		</li>
+	 
+ </ul>
+        
+
+		<div class="theme-annie-comment-button-container">
+	<button id="annie-comment-button" class="theme-annie-comment-button" onclick="Annie_Comment()">
+		加载评论
+		<!--加载评论-->
+	</button>
+</div>
+
+<div id="annie-comment-container" class="theme-annie-comment-main-container">
+
+	
+		
+			<!-- comment gitalk -->
+			<!-- show gitalk comment -->
+
+  <div id="gitalk-container"></div>
+
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+	//thanks O-R
+	//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+	//去除尾部匹配正则数组的字符串  
+	//remove redundant characters
+	String.prototype.trimEnd = function(regStr) {
+		var result = this;
+		if(regStr == undefined || regStr == null || regStr == "") {
+			return result;
+		}
+		var array = regStr.split(',');
+
+		if(array.length > 0) {
+
+			var c = array.shift();
+			var str = this;
+			var i = str.length;
+			var rg = new RegExp(c);
+			var matchArr = str.match(rg);
+
+			if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+				var matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+					.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+					.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+					.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+					.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+					.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+					.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+					.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+				matchStr = matchStr + '$';
+				result = str.replace(new RegExp(matchStr), "");
+			}
+
+			if(array.length > 0) {
+				return result.trimEnd(array.join())
+			} else {
+				return result;
+			}
+		}
+	};
+
+	//create gitalk
+	var gitalk = new Gitalk({
+		clientID: 'b7b455ac02390661d7da',
+		clientSecret: '07a9533c3f5f87bd7e4bc470bd5cf239bb339b0a',
+		//id: window.location.pathname,
+		// id: (window.location.pathname).split("/").pop().substring(0, 49),
+		id: md5(location.href.trimEnd('#.*$,\\?.*$,index.html$')),
+		repo: 'bloc-gitalk',
+		owner: 'CaiXiaoBai',
+		admin: 'CaiXiaoBai',
+		distractionFreeMode: 'true',
+	})
+	gitalk.render('gitalk-container');
+</script>
+		
+	
+
+</div>
+
+<script type="text/javascript">
+	/* Show Comment */
+	var Annie_Comment = function() {
+		function Show_Hidden(obj) {
+			obj.style.display = 'block';
+		}
+		
+		//var obutton = $('#annie-comment-button');
+		//var obutton = $('#annie-comment-container');
+		var obutton = document.getElementById("annie-comment-button" || "0");
+		var odiv = document.getElementById("annie-comment-container");
+		if( 'obutton' ) {
+			obutton.onclick = function() {
+				Show_Hidden(odiv);
+				$("#annie-comment-button").css("display", 'none');
+				return false;
+			}
+		}
+	};
+
+	(function Annie_Init() {
+		Annie_Comment();
+	})();
+</script>
+		
+		<!--
+	时间：2018-09-24
+	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
+-->
+
+	
+
+	</div>
+</div>
 		</div>
 		</main>
 		
@@ -335,6 +529,11 @@
 	}
 </style>
 
+
+	<script src="/js/motto.js"></script>
+	<script type="text/javascript">
+		$(".motto").html(getMingYanContent());
+	</script>	
 
 
 
@@ -676,6 +875,8 @@
 
 
 
+
+	<script type="text/javascript" src="/js/toc.js"></script>
 
 
 <script type="text/javascript" src="/js/main.js"></script>
