@@ -61,7 +61,7 @@
 	
 	<!-- others: such as change-bg, time... -->
 	<p class="page-name-other">
-		1/4/2019 
+		1/6/2019 
 		<style type="text/css">
 	header:after {
 		content: '';
@@ -222,7 +222,7 @@
 </li>
 </ul>
 <script type="math/tex; mode=display">
-  LCS(A_n,B_m)=\begin{cases}LCS(A_{n-1},B_{m-1}+A_n) \quad \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \quad A_n=B_m\\ max\{LCS(A_{n-1},B_m),LCS(A_n,B_{m-1})\} \quad A_n\not=B_m\end{cases}</script><h4 id="使用动态规划法求解"><a href="#使用动态规划法求解" class="headerlink" title="使用动态规划法求解"></a>使用动态规划法求解</h4><p>首先上一幅图</p>
+LCS(A_n,B_m)=\begin{cases}LCS(A_{n-1},B_{m-1}+A_n) \quad \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \quad A_n=B_m\\ max\{LCS(A_{n-1},B_m),LCS(A_n,B_{m-1})\} \quad A_n\not=B_m\end{cases}</script><h4 id="使用动态规划法求解"><a href="#使用动态规划法求解" class="headerlink" title="使用动态规划法求解"></a>使用动态规划法求解</h4><p>首先上一幅图</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fy37g4jwguj30ae0ao3z7.jpg" alt="0_1313577405FsRn.gif"></p>
 <p>记一个二维数组 $c[m,n]$，$c[i,j]$ 的值为 $x_i$ 和 $y_j$ 的最长公共子序列的长度，然后不难得出当 $i=0$ 或 $j=0$ 的时候 $X_i$ 和 $Y_j$ 的最长公共子序列的长度。然后通过动态规划法的公式得出</p>
 <script type="math/tex; mode=display">
