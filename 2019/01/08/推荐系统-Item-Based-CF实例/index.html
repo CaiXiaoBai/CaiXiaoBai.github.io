@@ -10,7 +10,7 @@
 		
 
 <head><meta name="generator" content="Hexo 3.8.0">
-	<title>告诉你什么是LCS</title>
+	<title>推荐系统-Item Based CF实例</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="apple-mobile-web-app-title" content="Amaze UI">
@@ -54,7 +54,7 @@
 		
 		
 			
-			<p class="page-name">当前文章&nbsp;:&nbsp;《告诉你什么是LCS》</p>
+			<p class="page-name">当前文章&nbsp;:&nbsp;《推荐系统-Item Based CF实例》</p>
 			
 		
 	
@@ -158,8 +158,8 @@
 					
 					
 	
-		<a href="/2018/12/10/告诉你什么是LCS/" itemprop="url">		
-			告诉你什么是LCS		
+		<a href="/2019/01/08/推荐系统-Item-Based-CF实例/" itemprop="url">		
+			推荐系统-Item Based CF实例		
 		</a>
 	
 
@@ -168,9 +168,9 @@
 				<p class="am-article-meta blog-text-center">
 					<span>
 						<i class="fa fa-clock-o"></i> 
-						<a href="/2018/12/10/告诉你什么是LCS/" itemprop="url">
-	<time datetime="2018-12-10T14:01:19.000Z" itemprop="datePublished">
-  		2018-12-10
+						<a href="/2019/01/08/推荐系统-Item-Based-CF实例/" itemprop="url">
+	<time datetime="2019-01-08T13:10:51.000Z" itemprop="datePublished">
+  		2019-01-08
   </time>
 </a>    
 &nbsp;
@@ -180,9 +180,9 @@
 						
 							<i class="fa fa-tags"></i>
 							
-								<a href="#大数据" title="大数据" rel="5">大数据</a>&nbsp;
+								<a href="#CF" title="CF" rel="2">CF</a>&nbsp;
 							
-								<a href="#LCS" title="LCS" rel="1">LCS</a>&nbsp;
+								<a href="#推荐系统" title="推荐系统" rel="1">推荐系统</a>&nbsp;
 													 											
 						
 					</span>
@@ -192,48 +192,70 @@
 			<div class="am-article-bd">
 				<div class="content" id="post-content">
 					
-						<h4 id="LCS是什么"><a href="#LCS是什么" class="headerlink" title="LCS是什么"></a>LCS是什么</h4><p>LCS是Longest Common Subsequence的缩写，即最长公共子序列。一个序列，如果是两个或者多个序列的子序列，并且是所有子序列中最长的，则为最长公共子序列。（有序但不连续也为子序列）</p>
+						<p>前边我们已经简单介绍了基于内容的推荐系统CB和基于协同过滤的推荐系统CF，今天我们就来看一个基于协同过滤中的基于物品的 Item Based CF 的一个实际实例来帮助大家更好的来了解和掌握以前的知识。</p>
+<p>下面我们来看看我们的元数据，数据很简单，每一行由userId（用户ID）、itemId（物品ID）、score（用户打分）组成，之间用”，“分隔。</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fyzjsurmagj30ia0e4jtt.jpg" alt="image-20190108223153096"></p>
+<p>我们计算的时候用下边这个相似度计算公式，这个公式其实本质上和cos相似度计算公式一样。</p>
+<script type="math/tex; mode=display">
+W_{i,j}=\frac {(\sum_{u\in U(i,j)}r_{ui}*r_{uj})*(|U(i,j)|-1)}{\sqrt[]{\sum_{u\in U(i,j)}r_{ui}^2*\sum_{u\in U(i,j)}r_{uj}^2}*(|U(i,j)|-1+\lambda)}</script><p>其中：</p>
+<p>​    $W_{i,j}$ 表示标号为i和j的两个item的相似度</p>
+<p>​    $U(i,j)$ 表示同时对i和j两个有评分的用户的集合</p>
+<p>​    $r_{ui}$ 表示用户u对item i的评分</p>
+<p>​    $\lambda$ 为平滑参数</p>
+<p>实际上我们在用的时候可以把分子分母相乘的后半部分当做一个常数舍去，对结果没有没有影响。那我们在计算的时候就可以只看前半部分了，通过分析我们就会发现，对于每个用户来说分母都是相同的，是所有用户对i的打分的平方和然后乘以所有用户对j的打分的平方和，而分子就是自己对i和j的乘积，我们分别把分母拆开，就可以得出其实就是自己对i的打分除以所有用户对i的打分的平方和（相当于归一化）然后乘以自己对i的打分除以所有用户对i的打分的平方和。由此我们代码实现的时候就很简单了。</p>
+<p>我们举一个简单的例子来说明这个公式怎么应用</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>item1</th>
+<th>item2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>B</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr>
+<td>C</td>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们要计算item1和item2的相似度，现在我们已经知道了所有同时对两个物品打分的用户A、B、C那么两个物品的相似度计算过程，首先把打分进行归一化，先求得所有用户对item1的打分的平方和 $2^2+1^2+4^2=20$ 然后求得所有用户对item2的打分的平方和$5^2+3^2+2^2=38$ 然后对所有打分进行归一化后再分别相乘求和，最后的相似度为</p>
+<script type="math/tex; mode=display">
+相似度=\frac{2}{20}*\frac{5}{38}+\frac{1}{20}*\frac{3}{38}+\frac{4}{20}*\frac{2}{38}</script><p>那么我们现在就有了一个思路，首先把所有打分进行归一化计算，然后找出所有对i和j打分的集合，然后计算出i和j的相似度。</p>
+<p>下面就是按照这个思路的代码实现，代码为python写的MapReduce任务。</p>
 <ul>
-<li>序列 13456 和 345674 的最长公共子序列为 3456</li>
-<li>序列 ABDBC 和 BCDBA 的最长公共子序列为 BDB</li>
-</ul>
-<h4 id="LCS可以用来做什么"><a href="#LCS可以用来做什么" class="headerlink" title="LCS可以用来做什么"></a>LCS可以用来做什么</h4><ul>
-<li>生物学上用来进行基因序列比对，以推测序列的结构、功能和演化过程</li>
-<li>用来描述两段文字的”相似性“，可以用来辨别是不是抄袭</li>
-</ul>
-<h4 id="怎么计算LCS"><a href="#怎么计算LCS" class="headerlink" title="怎么计算LCS"></a>怎么计算LCS</h4><ul>
-<li><p>暴力穷举法</p>
-<p>就是把两个序列所有的子序列都列出来，然后一一进行比较。</p>
-<p>假定字符串 A 和 B 的长度分别为 n 和 m，那么 A 共有 $2^n-1$ 个子序列，B 共有 $2^m-1$ 个子序列，然后将任意两个进行一一比较，最后得出 A 和 B 的最长公共子序列。这种算法的时间复杂度是 $O(2^{n+m})$ ，复杂度太高，当然不推荐使用。</p>
-</li>
-<li><p>动态规划法</p>
-<p>记：</p>
-<p>字符串 A ，长度为 n ，从 1 开始；字符串 A ，长度为 n ，从 1 开始。</p>
-<p>$A_i=<a_1,a_2,...ai>$ 即 A 序列的前 i 个字符 $(1\leq i \leq n)$ ($A_i$ 计做”字符串 A 的 i 前缀)</a_1,a_2,...ai></p>
-<p>$B_j=<b_1,b_2,...bj>$ 即 B 序列的前 j 个字符 $(1\leq j \leq m)$ ($B_j$ 计做”字符串 B 的 j 前缀)</b_1,b_2,...bj></p>
-<p>如果 $A_n=B_m$ (最后一个字符相同)，那么 A 和 B 的最长公共子序列 C 的最后一位 $C_k=A_n=B_m$ ，那么 $LCS(A,B)=LCS(A_n-1,B_m-1)+A_n$ </p>
-<p>如果 $A_n\not=B_m$ ，那么他们的最长公共子序列 C 要么是 $LCS(A_{n-1},B_m)$ ，要么是 $LCS(A_n,B_{m-1})$ ，所以 $LCS(A,B)=max\{LCS(A_{n-1},B_m),LCS(A_n,B_{m-1})\}$</p>
-<p>|      |  1   |  2   |  3   |  4   |  5   |  6   |  7   |<br>| :—: | :—: | :—: | :—: | :—: | :—: | :—: | :—: |<br>|  A   |  B   |  D   |  C   |  A   |  B   |  A   |      |<br>|  B   |  A   |  B   |  C   |  B   |  D   |  A   |  B   |</p>
-<p>$A_3=B_3= ‘C’$  那么 $LCS(BDC,ABC)=LCS(BD,AB)+’C’$ </p>
-<p>$A_5=B_4=’B’$  那么 $LCS(BDCAB,ABCB)=LCS(BDCA,ABC)+’B’$</p>
-<p>$A_2\not=B_2$  那么 $LCS(BD,AB)=max\{LCS(B,AB),LCS(BD,A)\}$  </p>
-<p>$A_4\not=B_5$  那么 $LCS(BDCA,ABCBD)=max\{LCS(BDC,ABCBD),LCS(BDCA,ABCB)\}$ </p>
-<p>由以上可以得出</p>
+<li><p>归一化并两两取对过程 </p>
+<p>map1.py</p>
 </li>
 </ul>
-<script type="math/tex; mode=display">
-LCS(A_n,B_m)=\begin{cases}LCS(A_{n-1},B_{m-1}+A_n) \quad \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \quad A_n=B_m\\ max\{LCS(A_{n-1},B_m),LCS(A_n,B_{m-1})\} \quad A_n\not=B_m\end{cases}</script><h4 id="使用动态规划法求解"><a href="#使用动态规划法求解" class="headerlink" title="使用动态规划法求解"></a>使用动态规划法求解</h4><p>首先上一幅图</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fy37g4jwguj30ae0ao3z7.jpg" alt="0_1313577405FsRn.gif"></p>
-<p>记一个二维数组 $c[m,n]$，$c[i,j]$ 的值为 $x_i$ 和 $y_j$ 的最长公共子序列的长度，然后不难得出当 $i=0$ 或 $j=0$ 的时候 $X_i$ 和 $Y_j$ 的最长公共子序列的长度。然后通过动态规划法的公式得出</p>
-<script type="math/tex; mode=display">
-c(i,j)=\begin{cases}0 \quad \quad \quad \quad i=0,j=0 \\ c(i-1,j-1) \quad \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \quad i>0,j>0,x_i=y_j\\ max\{c(i-1,j),c(i,j-1))\} \quad i>0,j>0,x_i\not=y_j\end{cases}</script><p>然后我们通过公式计算 $c(1,1)$ ，因为 $x_1$ 和 $y_1$ 不相等，得出 $c(1,1)=max \{ c(0,1),c(1,0) \}=0$ 。然后依次计算，就会得到图中的值，然后得出 $x$ 和 $y$ 的最长公共子序列的长度为4。我们在计算的时候会发现一个规律：当 $x_i=y_j$ 的时候 $c(i,j)$ 的值为左上角格子的数加1；当 $x_i\not=y_j$ 的时候 $c(i,j)$ 的值为左侧格子和上边格子中的较大的一个。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">str1 = sys.argv[<span class="number">1</span>]</span><br><span class="line">str2 = sys.argv[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">len1 = len(str1)</span><br><span class="line">len2 = len(str2)</span><br><span class="line"></span><br><span class="line">maxChildLen = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">lcs_ss = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(len2 + <span class="number">1</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> range(len1 + <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len1 + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, len2 + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> str1[i<span class="number">-1</span>] == str2[j<span class="number">-1</span>]:</span><br><span class="line">            lcs_ss[i][j] = lcs_ss[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            lcs_ss[i][j] = max(lcs_ss[i<span class="number">-1</span>][j], lcs_ss[i][j<span class="number">-1</span>])</span><br><span class="line"></span><br><span class="line">maxChildLen = lcs_ss[len1][len2]</span><br><span class="line"></span><br><span class="line">print(<span class="string">"str1: %s"</span> % str1)</span><br><span class="line">print(<span class="string">"str2: %s"</span> % str2)</span><br><span class="line">print(<span class="string">"LCS: %s"</span> % maxChildLen)</span><br></pre></td></tr></table></figure>
-<p>随便输入两个字符串，然后观察打印结果</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">str1: acedbae</span><br><span class="line">str2: becadeac</span><br><span class="line">LCS: <span class="number">3</span></span><br><span class="line"></span><br><span class="line">Process finished <span class="keyword">with</span> exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>若有任何问题，恳请不吝指正。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python </span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line">item_score_dic = &#123;&#125;</span><br><span class="line">user_item_score_list = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">    ss = line.strip().split(<span class="string">','</span>)</span><br><span class="line">    <span class="keyword">if</span> len(ss) != <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    user = ss[<span class="number">0</span>].strip()</span><br><span class="line">    item = ss[<span class="number">1</span>].strip()</span><br><span class="line">    score = float(ss[<span class="number">2</span>].strip())</span><br><span class="line">    user_item_score_list.append((user,item,score))</span><br><span class="line">    score = pow(score,<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">if</span> item_score_dic.has_key(item):</span><br><span class="line">        item_score_dic[item] += score</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        item_score_dic[item] = score</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> uis <span class="keyword">in</span> user_item_score_list:</span><br><span class="line">    user, item, score = uis</span><br><span class="line">    <span class="keyword">if</span> item_score_dic.has_key(item):</span><br><span class="line">        score_sqr = math.sqrt(item_score_dic[item])</span><br><span class="line">        <span class="keyword">print</span> (<span class="string">'\t'</span>.join([user,item,score/score_sqr]))</span><br></pre></td></tr></table></figure>
+<p>​    reduce1.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">current_user = <span class="keyword">None</span></span><br><span class="line">item_score_list = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">    ss = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(ss) != <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    user = ss[<span class="number">0</span>].strip()</span><br><span class="line">    item = ss[<span class="number">1</span>].strip()</span><br><span class="line">    score = float(ss[<span class="number">2</span>].strip())</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> current_user:</span><br><span class="line">        current_user = user</span><br><span class="line">    <span class="keyword">if</span> current_user != user:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(item_score_list) - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>, len(item_score_list)):</span><br><span class="line">                item_a, score_a = item_score_list[i]</span><br><span class="line">                item_b, score_b = item_score_list[j]</span><br><span class="line">                print(<span class="string">'\t'</span>.join([item_a, item_b, score_a * score_b]))</span><br><span class="line">                print(<span class="string">'\t'</span>.join([item_b, item_a, score_a * score_b]))</span><br><span class="line">        item_score_list = []</span><br><span class="line">        current_user = user</span><br><span class="line"></span><br><span class="line">    item_score_list.append((item, score))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(item_score_list) - <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, len(item_score_list)):</span><br><span class="line">        item_a, score_a = item_score_list[i]</span><br><span class="line">        item_b, score_b = item_score_list[j]</span><br><span class="line">        print(<span class="string">'\t'</span>.join([item_a, item_b, score_a * score_b]))</span><br><span class="line">        print(<span class="string">'\t'</span>.join([item_b, item_a, score_a * score_b]))</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>item1和item2相似对求和阶段</p>
+<p>map2.py</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">    ss = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(ss) != <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    item_a = ss[<span class="number">0</span>].strip()</span><br><span class="line">    item_b = ss[<span class="number">1</span>].strip()</span><br><span class="line">    score = ss[<span class="number">2</span>].strip()</span><br><span class="line">    print(<span class="string">'%s#%s\t%s'</span> % item_a, item_b, score)</span><br></pre></td></tr></table></figure>
+<p>​    reduce2.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">current_items = <span class="keyword">None</span></span><br><span class="line">sum = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> sys.stdin:</span><br><span class="line">    ss = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(ss) != <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    item_item = ss[<span class="number">0</span>].strip()</span><br><span class="line">    score = float(ss[<span class="number">1</span>].strip())</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> current_items:</span><br><span class="line">        current_items = item_item</span><br><span class="line">    <span class="keyword">if</span> current_items != item_item:</span><br><span class="line">        item_a, item_b = current_items.split(<span class="string">'#'</span>)</span><br><span class="line">        print(<span class="string">'\t'</span>.join(item_a, item_b, sum))</span><br><span class="line">        sum = <span class="number">0.0</span></span><br><span class="line">        current_items = item_item</span><br><span class="line">        </span><br><span class="line">    sum += score</span><br><span class="line"></span><br><span class="line">item_a, item_b = current_items.split(<span class="string">'#'</span>)</span><br><span class="line">print(<span class="string">'\t'</span>.join(item_a, item_b, sum))</span><br></pre></td></tr></table></figure>
+<p>以上就是算法的代码实现过程，这个算法有一个缺点就是，当数据量非常大的时候，物品两两取对的数量会非常大，很容易内存不够，所以在实际的应用中我们应该随机取一定量的数据进行计算，而不是把所有的数据都加到计算里边来。</p>
 <hr>
 <p>欢迎关注公众号：「努力给自己看」</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fxrdvrckwcj308c08b3zp.jpg" alt="二维码"></p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fyvim1mppnj305k05k0t2.jpg" alt="公众号200x200"></p>
 
 					
 				</div>
@@ -242,15 +264,9 @@ c(i,j)=\begin{cases}0 \quad \quad \quad \quad i=0,j=0 \\ c(i-1,j-1) \quad \ \ \ 
 
 		<ul class="am-pagination">
     
-    	<li class="am-pagination-prev">
-   		<a class="pull-left" href="/2019/01/04/推荐算法——基于内容的推荐CB/" title="推荐算法——基于内容的推荐CB">
-      		&laquo; 上一篇
-		</a>
-		</li>
-	
 	
 		<li class="am-pagination-next">
-		<a class="pull-right" href="/2018/12/09/TF-IDF介绍/" title="TF-IDF介绍">
+		<a class="pull-right" href="/2019/01/06/摆脱你的拖延症/" title="摆脱你的拖延症">
 			下一篇 &raquo;
 		</a>
 		</li>
@@ -371,18 +387,6 @@ c(i,j)=\begin{cases}0 \quad \quad \quad \quad i=0,j=0 \\ c(i-1,j-1) \quad \ \ \ 
 	描述：The TOC module refers to 'https://github.com/codefine/hexo-theme-mellow', include toc.ejs、toc.js、toc.css. All rights reserved by codefine. 
 -->
 
-	
-		<aside class="post-widget">
-			<nav class="post-toc-wrap" id="post-toc">
-				
-					<strong>文章目录</strong>
-				
-				
-				<!--toc(post.content)-->
-				<ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LCS是什么"><span class="post-toc-text">LCS是什么</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#LCS可以用来做什么"><span class="post-toc-text">LCS可以用来做什么</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#怎么计算LCS"><span class="post-toc-text">怎么计算LCS</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#使用动态规划法求解"><span class="post-toc-text">使用动态规划法求解</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#代码实现"><span class="post-toc-text">代码实现</span></a></li></ol>
-			</nav>
-			<div class="post-toc-bar"><div>
-		</div></div></aside>
 	
 
 	</div>
