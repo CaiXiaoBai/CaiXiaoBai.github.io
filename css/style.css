@@ -459,6 +459,18 @@ input[type="radio"]:not(:checked) + label:after {
   content: "\e88d";
 }
 
+.icon-jianshu:before {
+  content: "\e787";
+}
+
+.icon-weixingongzhonghao:before {
+  content: "\e618";
+}
+
+.icon-csdn:before {
+  content: "\e515";
+}
+
 
 .header-logo a {
   padding: 0;
