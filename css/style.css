@@ -359,7 +359,7 @@ input[type="radio"]:not(:checked) + label:after {
   content: "\e615";
 }
 
-.icon-JianShu:before {
+.icon-jianshu:before {
   content: "\e620";
 }
 
