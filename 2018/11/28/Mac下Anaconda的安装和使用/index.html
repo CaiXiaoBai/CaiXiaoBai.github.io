@@ -335,6 +335,9 @@
             <a class="next" rel="next" href="/2018/11/18/Flume的介绍和简单操作/">Flume的介绍和简单操作</a>
             
         </section>
+        <br>
+        <br>
+        <hr>
         
             <section id="comments" class="comments">
                 <style>
@@ -349,13 +352,15 @@
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
   var notify = 'true' == true ? true : false;
-  var verify = 'false' == true ? true : false;
+  var verify = 'true' == true ? true : false;
   new Valine({
       // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
       el: '.valine_comment',
       app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
       app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
-      placeholder: '这里留言。。'
+      placeholder: '这里留言。。',
+      notify: notify,
+      verify: verify
     });
 </script>
 
