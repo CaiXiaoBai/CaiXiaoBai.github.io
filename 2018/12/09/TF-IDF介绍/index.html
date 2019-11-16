@@ -407,13 +407,16 @@ cosθ=\frac{x_1y_1+x_2y_2+...+x_{64000}y_{64000}}{\sqrt{x_1^2+x_2^2+x_{64000}^2}
             <a class="next" rel="next" href="/2018/12/07/学习笔记—MapReduce/">学习笔记—MapReduce</a>
             
         </section>
-        <hr>
-        <section class="post-valine">
-            
+        
+            <section id="comments" class="comments">
+                <style>
+                    .comments{margin:30px;padding:10px;background:#fff}
+                    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+                </style>
                 <div class="valine_comment"></div>
 <!--载入js，在</body>之前插入即可-->
 <!--Leancloud 操作库:-->
-<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <!--Valine 的核心代码库-->
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
@@ -421,10 +424,7 @@ cosθ=\frac{x_1y_1+x_2y_2+...+x_{64000}y_{64000}}{\sqrt{x_1^2+x_2^2+x_{64000}^2}
   var verify = 'false' == true ? true : false;
   new Valine({
       // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
-      av: AV,
-      el: '.valine_comment',
-      emoticon_url: 'https://cloud.panjunwen.com/alu',
-      emoticon_list: ["狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","暗地观察.png"],
+      el: '#vcomment',
       app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
       app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
       placeholder: '这里留言。。'
@@ -432,8 +432,8 @@ cosθ=\frac{x_1y_1+x_2y_2+...+x_{64000}y_{64000}}{\sqrt{x_1^2+x_2^2+x_{64000}^2}
 </script>
 
 
-            
-        </section>
+            </section>
+        
 
 
     </article>
