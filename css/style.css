@@ -661,6 +661,21 @@ header label {
   padding-top: 0.8em;
   padding-bottom: 0.3em;
 }
+.post-content h5 {
+  font-size: 12pt;
+}
+.post-content h4 {
+  font-size: 13pt;
+}
+.post-content h3 {
+  font-size: 14pt;
+}
+.post-content h2 {
+  font-size: 15pt;
+}
+.post-content h1 {
+  font-size: 16pt;
+}
 .post-content h1::before {
   content: "#";
   margin-right: 5px;
