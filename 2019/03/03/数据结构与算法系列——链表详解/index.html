@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="KeepUp">
+
+
+
+
+
+<title>数据结构与算法——链表详解 | KeepUp&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">KeepUp&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">KeepUp&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">数据结构与算法——链表详解</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">KeepUp</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">March 3, 2019&nbsp;&nbsp;22:08:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/数据结构与算法/">数据结构与算法</a>
+                            
+                        </span>
+                    
+                    <span id="/2019/03/03/数据结构与算法系列——链表详解/" class="leancloud-visitors view" data-flag-title="数据结构与算法——链表详解">
+                    <em class="post-meta-item-text">Pageviews:</em>
+                    <i class="leancloud-visitors-count"><a href="#">loading</a></i>
+                    </span>
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>上次我们简单的对比了一下数组和链表的区别和各自的优缺点，今天我们来详细看一下链表这个结构。<br>链表的结构五花八门，我们几天主要看一下三种最常用的链表结构：<strong>单链表、双向链表和循环列表</strong>。</p>
+<ul>
+<li>单链表</li>
+</ul>
+<p>我们首先来看一下最简单、最常用的单链表。前边我们已经知道链表是通过指针将一些分散的内存块连接到一起。其中，我们把每个内存块叫做链表的一个<strong>结点</strong>。为了将每个结点连接到一起，每个结点不仅存储数据，而且还需要记录下一个结点的地址。我们把这个记录下一个结点的指针称为<strong>后继指针next</strong>。我们通过下边示意图来更形象的了解一下。<br><img src="https://upload-images.jianshu.io/upload_images/944288-b7ed2255d218cbc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>从图中我们可以看到，单链表是单方向顺序的一个线性表。其中有两个结点比较特殊，分别是第一个和最后一个结点。我们通常把第一个结点叫做<strong>头结点</strong>，最后一个结点叫做<strong>尾结点</strong>，头结点用来记录链表的基地址，这样我们就可以遍历得到整个结点，尾结点是最后一个结点，它的指针指向一个空地址<strong>NULL</strong>，这样我们通过判断后继指针next是不是NULL来确定某个结点是不是尾结点。<br>前边我们在<strong>数组和链表</strong>中已经详细介绍了链表的插入和删除，在这里我们不做过多的描述，而是通过示意图的方式更清楚的了解。针对链表的插入和删除操作，我们只需要考虑相邻结点的指针改变，所以对应的时间复杂度为O(1)。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/944288-a55c33b67fda310f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<ul>
+<li>双向链表</li>
+</ul>
+<p>单链表只有一个指针，每个结点都只有一个后继指针next指向下一个结点的地址。而双向链表，顾名思义，它有两个方向，所以每个结点不仅有一个指向下一个结点的后继指针next，还有一个指向前一个结点的<strong>前驱结点prev</strong>。同样我们通过示意图来看一下。<br><img src="https://upload-images.jianshu.io/upload_images/944288-bb9954d01ecdf75f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>从图中我们看到，与单链表相比，双向链表的每个结点还需要存储指向前一个结点的指针，所以，同样多的数据，双向链表比单链表需要更多的存储空间。两个指针虽然比较浪费空间，但是双向链表可以双向遍历，灵活性更高。<br>双向链表在删除、插入结点上更加高效，前边我们讲过单链表的删除和插入操作的时间复杂度为O(1)，但是双向链表的为什么会更高效呢，因为单链表的分析只是理论上得到的，但是实际情况中是不准确的，是需要前提条件的。<br>下面我们分析一下实际情况中的操作。我们先来看插入操作，实际情况中的插入操作可以分为这两种情况：</p>
+<ol>
+<li>在值等于某个指定值的结点前或者后插入结点</li>
+<li>在给定指针后边插入结点</li>
+</ol>
+<p>对于第一种情况，不管是单链表还是双向链表，都需要从头一个一个遍历直到找到特定值的结点，然后执行插入操作虽然插入的时间复杂度为O(1)，但是遍历的时间复杂度为O(n)，所以在值等于某个指定值的结点前或者后插入结点的时间复杂度为O(n)。<br>对于第二种情况，我们通过给定指针可以直到插入结点的位置，但是我们需要直到给定指针的前驱结点，如果是单链表，我们依然需要通过从头开始遍历找到前驱结点，需要的时间复杂度为O(n)，但是对于双向链表就简单多了，我们只需要通过前驱结点的指针就能得到前驱结点，需要的时间复杂度为O(1)。<br>同理，参照我们上边插入操作的分析，删除结点双向链表同样比单链表灵活得多。<br>还有就是在有序链表中，双向链表的按值查询也比单链表也快一些，因为我们可以记录上次查找的位置x，然后通过比较查询值x的大小来决定向前还是向后，可以比单链表节省时间。<br>通过上边单链表和双向链表的比较，我们有学习了灵位一个非常重要的知识点，那就是<strong>用空间换时间</strong>的思想，当内存空间充足时，如果我们对执行效率有更高的要求，可以用牺牲内存而换取效率的办法，也就是选择空间复杂度相对比较高，但是时间复杂度低的算法或者数据结构（实际应用中，缓存就是利用空间换时间的思想）。相反，如果内存比较紧张，我们就可以用时间换空间的算法或数据结构。</p>
+<ul>
+<li>循环链表</li>
+</ul>
+<p>循环链表一种特殊的单链表，与单链表唯一的区别就是，循环链表的尾结点的指针指向头结点而不是指向空地址。如下示意图所示。<br><img src="https://upload-images.jianshu.io/upload_images/944288-b6e38652a161a6c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>和单链表相比，循环列表的优点就是从链尾到链头比较方便。比如需要处理的数据具有环形结构特点时，用循环列表就非常合适。虽然单链表也可以实现，但是循环链表的代码要简洁的多。</p>
+<h5 id="链表的应用"><a href="#链表的应用" class="headerlink" title="链表的应用"></a>链表的应用</h5><p>我们已经学习了三种简单且最常见的链表，那么链表在实际的应用中是怎么用的呢？一个经典的链表使用场景就是<strong>LRU缓存淘汰法</strong>。<br>缓存的大小有限，但缓存的空间被用满的时候，我们该把哪些数据清除出去呢？LRU缓存淘汰法就是其中的一种策略，把最近最少用的数据清除出去。<br>那用链表怎么实现这个算法呢，下边我们来看一下基于单链表的Java实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line">package linked.singlelist;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 基于单链表LRU算法（java）</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class LRUBaseLinkedList&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 头结点</span><br><span class="line">     */</span><br><span class="line">    private SNode&lt;T&gt; headNode;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 链表长度</span><br><span class="line">     */</span><br><span class="line">    private Integer length;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 链表容量</span><br><span class="line">     */</span><br><span class="line">    private Integer capacity;</span><br><span class="line"></span><br><span class="line">    public LRUBaseLinkedList(Integer capacity) &#123;</span><br><span class="line">        this.headNode = new SNode&lt;&gt;();</span><br><span class="line">        this.capacity = capacity;</span><br><span class="line">        this.length = 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void add(T data) &#123;</span><br><span class="line">        SNode preNode = findPreNode(data);</span><br><span class="line"></span><br><span class="line">        // 链表中存在，删除原数据，再插入到链表的头部</span><br><span class="line">        if (preNode != null) &#123;</span><br><span class="line">            deleteElemOptim(preNode);</span><br><span class="line">            intsertElemAtBegin(data);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            if (length &gt;= this.capacity) &#123;</span><br><span class="line">                //删除尾结点</span><br><span class="line">                deleteElemAtEnd();</span><br><span class="line">            &#125;</span><br><span class="line">            intsertElemAtBegin(data);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除preNode结点下一个元素</span><br><span class="line">     *</span><br><span class="line">     * @param preNode</span><br><span class="line">     */</span><br><span class="line">    private void deleteElemOptim(SNode preNode) &#123;</span><br><span class="line">        SNode temp = preNode.getNext();</span><br><span class="line">        preNode.setNext(temp.getNext());</span><br><span class="line">        temp = null;</span><br><span class="line">        length--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 链表头部插入结点</span><br><span class="line">     *</span><br><span class="line">     * @param data</span><br><span class="line">     */</span><br><span class="line">    private void intsertElemAtBegin(T data) &#123;</span><br><span class="line">        SNode next = headNode.getNext();</span><br><span class="line">        headNode.setNext(new SNode(data, next));</span><br><span class="line">        length++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取查找到元素的前一个结点</span><br><span class="line">     *</span><br><span class="line">     * @param data</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private SNode findPreNode(T data) &#123;</span><br><span class="line">        SNode node = headNode;</span><br><span class="line">        while (node.getNext() != null) &#123;</span><br><span class="line">            if (data.equals(node.getNext().getElement())) &#123;</span><br><span class="line">                return node;</span><br><span class="line">            &#125;</span><br><span class="line">            node = node.getNext();</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 删除尾结点</span><br><span class="line">     */</span><br><span class="line">    private void deleteElemAtEnd() &#123;</span><br><span class="line">        SNode ptr = headNode;</span><br><span class="line">        // 空链表直接返回</span><br><span class="line">        if (ptr.getNext() == null) &#123;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 倒数第二个结点</span><br><span class="line">        while (ptr.getNext().getNext() != null) &#123;</span><br><span class="line">            ptr = ptr.getNext();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        SNode tmp = ptr.getNext();</span><br><span class="line">        ptr.setNext(null);</span><br><span class="line">        tmp = null;</span><br><span class="line">        length--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void printAll() &#123;</span><br><span class="line">        SNode node = headNode.getNext();</span><br><span class="line">        while (node != null) &#123;</span><br><span class="line">            System.out.print(node.getElement() + &quot;,&quot;);</span><br><span class="line">            node = node.getNext();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public class SNode&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">        private T element;</span><br><span class="line"></span><br><span class="line">        private SNode next;</span><br><span class="line"></span><br><span class="line">        public SNode(T element) &#123;</span><br><span class="line">            this.element = element;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public SNode(T element, SNode next) &#123;</span><br><span class="line">            this.element = element;</span><br><span class="line">            this.next = next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public SNode() &#123;</span><br><span class="line">            this.next = null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public T getElement() &#123;</span><br><span class="line">            return element;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void setElement(T element) &#123;</span><br><span class="line">            this.element = element;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public SNode getNext() &#123;</span><br><span class="line">            return next;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        public void setNext(SNode next) &#123;</span><br><span class="line">            this.next = next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        LRUBaseLinkedList list = new LRUBaseLinkedList();</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            list.add(sc.nextInt());</span><br><span class="line">            list.printAll();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>欢迎关注公众号：「努力给自己看」</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944288-610ecd78a90d550c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号200x200"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>KeepUp</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2019/03/03/数据结构与算法系列——链表详解/">http://yoursite.com/2019/03/03/数据结构与算法系列——链表详解/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/链表/"># 链表</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/03/09/数据结构与算法系列——栈/">数据结构与算法——栈</a>
+            
+            
+            <a class="next" rel="next" href="/2019/02/22/数据结构与算法系列——数组和链表/">数据结构与算法——数组和链表</a>
+            
+        </section>
+        <br>
+        <br>
+        
+            <section id="comments" class="comments">
+                <style>
+                    .comments{margin:30px;padding:10px;background:#fff}
+                    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+                </style>
+                <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'true' == true ? true : false;
+  var verify = 'true' == true ? true : false;
+  new Valine({
+      el: '.valine_comment',
+      app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
+      app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
+      placeholder: '这里留言。。',
+      notify: notify,
+      verify: verify,
+      visitor: true
+    });
+</script>
+
+
+            </section>
+        
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© KeepUp | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="KeepUp">
+
+
+
+
+
+<title>数据结构与算法——递归 | KeepUp&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">KeepUp&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">KeepUp&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">数据结构与算法——递归</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">KeepUp</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">April 13, 2019&nbsp;&nbsp;17:13:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/数据结构与算法/">数据结构与算法</a>
+                            
+                        </span>
+                    
+                    <span id="/2019/04/13/数据结构与算法系列——递归/" class="leancloud-visitors view" data-flag-title="数据结构与算法——递归">
+                    <em class="post-meta-item-text">Pageviews:</em>
+                    <i class="leancloud-visitors-count"><a href="#">loading</a></i>
+                    </span>
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h3 id="递归的理解"><a href="#递归的理解" class="headerlink" title="递归的理解"></a>递归的理解</h3><p>在学习数据结构和算法的过程中，递归可能是比较难理解的一个知识点，每次都试着用自己的大脑去把一步一步去想清楚，结果最后把自己都绕晕了。</p>
+<p>我们很多人都遇到过这种情况，读源码的时候，我们想弄清楚一个方法的具体实现，然后跟进去发现里边还有一个方法，然后我们又跟到新的方法里边，结果发现里边还有另一个新的方法……这样跟了一层又一层，终于到了最后一层没有再调用其他的方法，然后我们再一层一层返回去，最终弄明白了最初想了解的方法的作用（实际中这种方式是不推荐的，因为嵌套很多层，最后搞得头都大了，却忘记了最初是要干什么）。其实这就是一个递归的过程，通过一层一层的去了解方法的作用，然后到最后再一层一层返回去，明白最初方法的作用。</p>
+<p>到这里，我想大家其实对递归也有一定了解了。其实递归就是可以把原来一个大型复杂的任务，分解成一个或几个与原任务有相类似求解方法的小任务，然后最后有一个终止条件。</p>
+<h3 id="递归的条件"><a href="#递归的条件" class="headerlink" title="递归的条件"></a>递归的条件</h3><p>由此我们可以总结出几个使用递归需要满足的条件：</p>
+<ul>
+<li>一个问题可以分解为一个或几个子问题</li>
+<li>子问题和原来问题的求解方式相同，只是规模比原问题小</li>
+<li>存在终止条件，否则会变成无限循环</li>
+</ul>
+<h3 id="举一个例子"><a href="#举一个例子" class="headerlink" title="举一个例子"></a>举一个例子</h3><p>前几天刷剑指offer题库，碰到了好多题都可以用递归的方法计算。比如其中一个经典的跳台阶问题。</p>
+<h5 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h5><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
+<h5 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h5><p>每次跳台阶都有两个选择，要么跳1级，要么跳2级。只有1级台阶的时候只有跳1级1种跳法，有2级时有每次1级1级跳两次和直接跳2级两种跳法，当有3级台阶的时候，我们可以从第2级跳1级到第3级，也可以从第1级跳2级到第3级，所以3级台阶的总跳法，就是1级台阶的总跳法和2级台阶的总跳法的总和，由此我们就发现了一个规律从3级之后的算法为 f(n)=f(n-1)+f(n-2)，发现我们要求得结果符合<strong>斐波那契数列</strong>。所以我们想知道 n 级台阶总共有多少跳法，只要将 n-1 的跳法加上 n-2 的跳法就可以了。</p>
+<h5 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">JumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target&lt;<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> target;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> JumpFloor(target - <span class="number">1</span>) + JumpFloor(target - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="怎么使用递归"><a href="#怎么使用递归" class="headerlink" title="怎么使用递归"></a>怎么使用递归</h3><p>我们现在也对递归有一定的了解了，那递归该怎么用呢？其实在上边例子中其实已经给出了答案。首先，我们要通过规律推导出递归的公式，然后找到递归的终止条件，然后把公式转化为代码就很容易了。就比如上边例子中的解题思路中就是这一过程的实现。</p>
+<p>有人觉得递归难以理解，可能是走入误区，就像我一开始举得读源码的例子。一定要在脑子里把递归展开，一层一层去调用，然后一层层的返回，试图去弄明白每一个过程，这其实就有点钻牛角尖了，尤其是当一个问题分解成好几个子问题，然后嵌套层数比较多的时候，我们的大脑是没办法把每一个过程都能想出来的。相反计算机却很擅长这种重复的事情，所以我们没必要在大脑中去分解每一个步骤，我们只需要找到规律公式和终止条件，剩下的交给计算就行了。</p>
+<h3 id="使用递归需要注意"><a href="#使用递归需要注意" class="headerlink" title="使用递归需要注意"></a>使用递归需要注意</h3><p>在实际程序设计的时候，我们使用递归的时候要注意几个问题。</p>
+<h5 id="栈溢出问题"><a href="#栈溢出问题" class="headerlink" title="栈溢出问题"></a>栈溢出问题</h5><p>我们都知道函数调用时会用栈来保存临时变量，每调用一个函数，都会将临时变量封装为栈帧压入内存栈，等函数执行结束才出栈。一般系统栈和虚拟机栈都不是很大，当递归嵌套的次数较多的时候，就会有栈溢出的风险。</p>
+<p>所以如果递归的次数比较小的时候我们可以考虑使用递归，否则我们就要考虑其他的方法。</p>
+<h5 id="重复计算问题"><a href="#重复计算问题" class="headerlink" title="重复计算问题"></a>重复计算问题</h5><p>还是以跳台阶的例子来说明，假如我们要计算 5 级台阶有多少种跳法，我们用我们推导出来公式来计算，f(5)=f(4)+f(3)，然后我们分别要求 f(4)=f(3)+f(2)，f(3)=f(2)+f(1)，我们可以看到在求解 f(5) 的时候我们计算过 f(3)，而在计算 f(4) 的时候我们又计算了一遍 f(3)，同样 f(2) 也被计算了多次，这就是重复计算的问题。</p>
+<p>我们可以用散列表来储存已经计算过的 f(n)，然后在每次计算的时候先去散列表里查有没有被计算过，如果有那么直接使用；如果没有那把计算后的值存到散列表中，这样就能避免重复计算的问题。</p>
+<p>我们按这个办法修改一下上边例子的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    Map&lt;Integer, Integer&gt; resultMap = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">JumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target &lt; <span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> target;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(resultMap.containsKey(target))&#123;</span><br><span class="line">            <span class="keyword">return</span> resultMap.get(target);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> result = JumpFloor(target - <span class="number">1</span>) + JumpFloor(target - <span class="number">2</span>);</span><br><span class="line">        resultMap.put(target, result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="效率问题"><a href="#效率问题" class="headerlink" title="效率问题"></a>效率问题</h5><p>由于多层递归的嵌套，所以会多次调用函数，当次数达到一定数量的时候，就会有很高的时间成本。在空间复杂度上，因为递归每调用一次就会在栈中保存一次现场数据，所以每次都要产生这种额外的开销。</p>
+<h2 id="所以，虽然递归的代码看上去非常简洁，但是也会有很多问题，我们在实际使用的时候一定要注意递归可能会带来的问题。"><a href="#所以，虽然递归的代码看上去非常简洁，但是也会有很多问题，我们在实际使用的时候一定要注意递归可能会带来的问题。" class="headerlink" title="所以，虽然递归的代码看上去非常简洁，但是也会有很多问题，我们在实际使用的时候一定要注意递归可能会带来的问题。"></a>所以，虽然递归的代码看上去非常简洁，但是也会有很多问题，我们在实际使用的时候一定要注意递归可能会带来的问题。</h2><p>欢迎关注公众号：「努力给自己看」</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944288-610ecd78a90d550c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号200x200"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>KeepUp</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2019/04/13/数据结构与算法系列——递归/">http://yoursite.com/2019/04/13/数据结构与算法系列——递归/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/递归/"># 递归</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/05/11/Mac-下-Centos7-Minimal-版本虚拟机软件安装/">Mac-下-Centos7-Minimal-版本虚拟机软件安装</a>
+            
+            
+            <a class="next" rel="next" href="/2019/03/30/数据结构与算法系列——队列/">数据结构与算法——队列</a>
+            
+        </section>
+        <br>
+        <br>
+        
+            <section id="comments" class="comments">
+                <style>
+                    .comments{margin:30px;padding:10px;background:#fff}
+                    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+                </style>
+                <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'true' == true ? true : false;
+  var verify = 'true' == true ? true : false;
+  new Valine({
+      el: '.valine_comment',
+      app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
+      app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
+      placeholder: '这里留言。。',
+      notify: notify,
+      verify: verify,
+      visitor: true
+    });
+</script>
+
+
+            </section>
+        
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© KeepUp | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>

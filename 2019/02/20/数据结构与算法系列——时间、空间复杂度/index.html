@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="KeepUp">
+
+
+
+
+
+<title>数据结构与算法——时间、空间复杂度 | KeepUp&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">KeepUp&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">KeepUp&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">数据结构与算法——时间、空间复杂度</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">KeepUp</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">February 20, 2019&nbsp;&nbsp;22:09:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/数据结构与算法/">数据结构与算法</a>
+                            
+                        </span>
+                    
+                    <span id="/2019/02/20/数据结构与算法系列——时间、空间复杂度/" class="leancloud-visitors view" data-flag-title="数据结构与算法——时间、空间复杂度">
+                    <em class="post-meta-item-text">Pageviews:</em>
+                    <i class="leancloud-visitors-count"><a href="#">loading</a></i>
+                    </span>
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>数据结构和算法本质就是帮我们用最快的时间和最少的空间来执行我们的代码。所以，执行效率是衡量一个算法的非常重要的指标。那如何来计算你的算法代码的执行效率呢？这就需要时间、空间复杂度来分析了。</p>
+<p>有人可能会说，我把代码执行一遍，然后通过统计、监控就能知道执行的时间和需要的内存大小。干嘛还需要时间、空间复杂度来分析呢？我都能得到具体需要的时间和内存了，还需要多此一举吗？</p>
+<p>首先，这种评估算法效率的方法没有问题，我们还给这种方法起了一个名字，叫<strong>事后统计法</strong>。但是这种方法有很大的局限性。</p>
+<p><strong>1. 测试结果受测试环境影响</strong></p>
+<p>测试环境的硬件对测试结果有非常大的影响。比如，同样的代码在i7和i5的机器上执行，结果肯定是不同的。还有可能在一台机器上A代码比B代码执行速度要快，我们换另外一台机器却得到相反的结果。</p>
+<p><strong>2. 测试结果受数据规模的影响</strong></p>
+<p>比如排序算法，原始数据如果有序度不一样，执行的时间就会有很大的差别。原始数据规模的大小不同，也可能会让原来速度快的算法变成速度慢的。</p>
+<p>所以我们就需要一个不需要具体的测试数据来测试，就可以大概估算出执行效率的方法，就是时间、空间复杂度分析方法。</p>
+<h5 id="大O复杂度表示方法"><a href="#大O复杂度表示方法" class="headerlink" title="大O复杂度表示方法"></a>大O复杂度表示方法</h5><p>我们通过度代码，来估算出它执行所需要的时间，下边来看一段具体的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public int Function(int n)</span><br><span class="line">&#123;</span><br><span class="line">    int sum = 0;</span><br><span class="line">    for(int i = 1; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们假设每一行代码执行的时间都是相同的为 t，那么第 3 行执行的时间为 t，第 4 和 6 行执行了 n 次，需要时间为 2n<em>t，总的时间为 (1+2n)</em>t，可以看出来总的代码的执行时间 T(n) 与每行代码的执行次数成正比。</p>
+<p>然后我们再来看下边的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public int Function(int n)</span><br><span class="line">&#123;</span><br><span class="line">    int sum = 0;</span><br><span class="line">    for(int i = 1; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        for(int j = 1; j &lt;= n; j++</span><br><span class="line">        &#123;</span><br><span class="line">            sum += i*j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码中在上边的基础上又套了一层 for 循环，第 6 和 8 行执行了 n^2 次，需要的时间为 2n^2 <em> t ,总的需要的时间为 T(n)=(2n^2+2n+1) </em> t </p>
+<p>通过上述两个具体的代码例子我们总结出一个公式：</p>
+<hr>
+<p>T(n)=O(f(n))</p>
+<hr>
+<p>T(n) 表示代买执行的时间，n 是数据的大小，f(n) 表示代码执行的总次数，O 表示公式中 T(n) 与 f(n) 成正比。这就是大 O 时间复杂度表示法，它实际上并不表示代码具体执行所需要的时间，它表示随着数据规模的变化代码执行时间的变化趋势。</p>
+<p>当 n 非常大时，低阶、系数、常量对结果的影响就非常小了，所以我们可以把这几项忽略不记，只保留最高阶的就可以了，所以上边两个例子中 O(1+2n) 就可以记为 O(n)，o(2n^2+2n+1) 就可以记为 O(n^2)。</p>
+<p>上边我们知道了怎么用大 O 时间复杂度的表示方法。那么我们如何具体分析一段代码的时间复杂度呢？</p>
+<ul>
+<li>只关注循环次数最多的一段代码</li>
+</ul>
+<p>因为大 O 时间复杂度只表示一种变化的趋势，所以我们只需要关心阶数最高的那部分就可以了，低阶、系数、常量我们都可以忽略。以上边第一段代码为例 O(1+2n)，我们忽略掉系数和常量最后就得到了 O(n)。</p>
+<ul>
+<li>加法法则</li>
+</ul>
+<p>对于顺序执行的长代码，我们把它分成几部分，分别求出其总时间 T(n) ,然后相加得到总的时间，最后同样忽略低阶、系数、常量部分，保留最高阶的部分然后得出最后的时间复杂度大 O。</p>
+<ul>
+<li>乘法法则</li>
+</ul>
+<p>对于逻辑复杂的嵌套代码，我们分别求嵌套内外代码的复杂度，然后相乘得出最终的时间复杂度大 O。</p>
+<h5 id="几种常见的时间复杂度分析"><a href="#几种常见的时间复杂度分析" class="headerlink" title="几种常见的时间复杂度分析"></a>几种常见的时间复杂度分析</h5><p>下边列举出常见的时间复杂度量级</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>多项式量级</th>
+<th>非多项式量级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>常数阶 O(1)</td>
+<td>指数阶 O(2^n)</td>
+</tr>
+<tr>
+<td>对数阶 O(logn)</td>
+<td>阶乘阶 O(n!)</td>
+</tr>
+<tr>
+<td>线性阶 O(n)</td>
+<td></td>
+</tr>
+<tr>
+<td>线性对数阶 O(nlogn)</td>
+<td></td>
+</tr>
+<tr>
+<td>k次方阶 O(n^2) O(n^3) O(n^k)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于非多项式量级的算法会随着数据规模的增大急剧增加，所以分多项式量级的算法是非常低效的，我们不做过多的介绍。主要来介绍几种常见的多项式量级的时间复杂度。</p>
+<ol>
+<li>常数阶 O(1)</li>
+</ol>
+<p>O(1) 只是常量级时间复杂度的表示方式，不是只有一行代码，而是每一段代码的执行时间不随着 n 的数据规模的变大而变长，这样的代码的时间复杂度记为 O(n)。</p>
+<ol>
+<li>对数阶 O(logn) O(nlogn)</li>
+</ol>
+<p>对数阶复杂度很常见，但是分析的时候却不容易，下面我们用一段实际的例子来看看对数阶时间复杂度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void Function(int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 1;</span><br><span class="line">    while(i&lt;=n)</span><br><span class="line">    &#123;</span><br><span class="line">        i = i*2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过上边我们总结的方法，我们只需要知道 while 循环的次数，就能得到这段代码的复杂度。从代码中可以看出 i 的值从 1 开始，每循环一次乘以 2，直到 i 的值大于 n 的时候结束，我们得到规律然后把结果列出来，<br>2^0 2^1 2^3 2^4 …… 2^x = n ，然后求得执行的次数 x = logn ,这段代码的时间复杂度就是 O(logn)。</p>
+<ol>
+<li>O(n+m) O(n*m)</li>
+</ol>
+<p>我们再来讲一种跟前面都不一样的时间复杂度，代码的复杂度由两个数据的规模决定，所以我们需要同时考虑两种数据规模对结果的影响，如果是顺序的，那么时间复杂度就为 O(n+m)，如果为嵌套的那么时间复杂度为 O(n*m)。</p>
+<h5 id="空间复杂度分析"><a href="#空间复杂度分析" class="headerlink" title="空间复杂度分析"></a>空间复杂度分析</h5><p>理解了上边的时间复杂度的分析方法，空间复杂度的分析也就很简单了。空间复杂度表示算法的存储空间与数据规模之间的增长关系。</p>
+<p>同样我们通过一段实际的代码来分析一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void Function(int n)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 0;</span><br><span class="line">    int[] a = new int[n];</span><br><span class="line">    for(i;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i] = i*i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们看到第 3 行代码，我们申请了一个空间存储变量 i ，但是这个是常数阶的，不会随 n 的变化而变化，所以可以忽略，第 4 行我们申请了一个大小为 n 的 int 类型数组，除此之外其余代码没有占用其他的空间，所以这段代码的空间复杂度为 O(n)。</p>
+<p>我们常见的空间复杂度有 O(1)、O(n)、O(n^2)，对数阶的空间复杂度一般情况下用不到。所以空间复杂度比时间复杂度容易分析的多，我们也只需要掌握常见的几种就可以了。</p>
+<p>最后我们总结一下常见的几种复杂度，执行效率从高到低依次为<br>O(1)&gt;O(logn)&gt;O(n)&gt;o(nlogn)&gt;O(n^2)</p>
+<hr>
+<p>欢迎关注公众号：「努力给自己看」</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944288-610ecd78a90d550c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号200x200"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>KeepUp</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2019/02/20/数据结构与算法系列——时间、空间复杂度/">http://yoursite.com/2019/02/20/数据结构与算法系列——时间、空间复杂度/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/时间复杂度/"># 时间复杂度</a>
+                    
+                        <a href="/tags/空间复杂度/"># 空间复杂度</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/02/22/数据结构与算法系列——数组和链表/">数据结构与算法——数组和链表</a>
+            
+            
+            <a class="next" rel="next" href="/2019/01/21/朴素贝叶斯算法-应用实例/">朴素贝叶斯算法&应用实例</a>
+            
+        </section>
+        <br>
+        <br>
+        
+            <section id="comments" class="comments">
+                <style>
+                    .comments{margin:30px;padding:10px;background:#fff}
+                    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+                </style>
+                <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'true' == true ? true : false;
+  var verify = 'true' == true ? true : false;
+  new Valine({
+      el: '.valine_comment',
+      app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
+      app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
+      placeholder: '这里留言。。',
+      notify: notify,
+      verify: verify,
+      visitor: true
+    });
+</script>
+
+
+            </section>
+        
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© KeepUp | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
