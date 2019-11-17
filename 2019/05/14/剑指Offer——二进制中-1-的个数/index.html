@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="KeepUp">
+
+
+
+
+
+<title>剑指Offer——二进制中 1 的个数 | KeepUp&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">KeepUp&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">KeepUp&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">剑指Offer——二进制中 1 的个数</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">KeepUp</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">May 14, 2019&nbsp;&nbsp;9:50:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/剑指Offer/">剑指Offer</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。</p>
+<p>时间限制：1秒 空间限制：32768K</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">    public int NumberOf1(int n) &#123;</span><br><span class="line">        int count = 0;</span><br><span class="line">        while(n!=0)&#123;</span><br><span class="line">            count++;</span><br><span class="line">            n = n&amp;(n-1);</span><br><span class="line">        &#125;</span><br><span class="line">        return count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>我们先来看一个数的二进制，就比如 12 的二进制表示是 1100 ，如果一个整数不等于 0 的话，那么至少有一位是 1。如果我们把这个整数减 1 ，也就是 11 的二进制是 1011，我们发现原来整数的最右边的 1 就会变成 0 ，而原来 1 后边的所有 0 都会变成 1 （如果原来 1 后边有 0 的话），原来 1 前边的将不变。</p>
+<p>也就是说把一个整数减 1 之后，得到的结果就是把原来整数从最右边的 1 开始的所有位都做了取反操作，然后再把原来的整数和减 1 之后的数做与运算，即从原来数的最右边的 1 开始所有位都变成了 0 。比如： 1100&amp;1011=1000，也就是说把一个数减 1 再与原来的数做与运算，就是把原来数的最右边的 1 变成了 0，那么我们可以对一个二进制的整数进行多少次这样的运算，就表示这个整数的二进制中有多少个 1 。</p>
+<h4 id="延伸问题"><a href="#延伸问题" class="headerlink" title="延伸问题"></a>延伸问题</h4><ul>
+<li><p>与运算（&amp;）</p>
+<p>运算规则：1&amp;0=0；0&amp;1=0；0&amp;0=0；1&amp;1=1。</p>
+<p>两位同时为 1 ，结果才为 1，否则为 0。</p>
+</li>
+<li><p>或运算（|）</p>
+<p>运算规则：1|0=1；0|1=1；0|0=0；1|1=1。</p>
+<p>只要有一个为 1 ，那么结果就为 1。</p>
+</li>
+<li><p>异或运算（^）</p>
+<p>运算规则：1\^0=1；0\^1=1；0\^0=0；1\^1=0；</p>
+<p>如果两个相应位为“异”（值不同），则该位结果为 1，否则为 0。</p>
+</li>
+<li><p>取反运算（~）</p>
+<p>运算规则：~1=0；~0=1；</p>
+<p>对一个二进制数按位取反，即将 0 变 1，1 变 0。</p>
+</li>
+<li><p>左移运算（&lt;&lt;）</p>
+<p>将一个运算对象的各二进制位全部左移若干位（左边的二进制位丢弃，右边补0）。</p>
+<p>例如：a=a&lt;&lt;2，将 a 的二进制位左移两位，右边补 0。</p>
+<p>若左移时舍弃的高位不包含 1，则每左移一位，相当于该数乘以 2，即 a=a*2。</p>
+</li>
+<li><p>右移运算（&gt;&gt;）</p>
+<p>将一个数的各二进制位全部右移若干位，正数左补 0，负数左补 1，右边丢弃。</p>
+<p>例如：a = a&gt;&gt; 2，将 a 的二进制位右移 2 位。</p>
+<p>每右移一位，相当于该数除以2。</p>
+</li>
+</ul>
+<hr>
+<p>欢迎关注公众号：「努力给自己看」</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/944288-610ecd78a90d550c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号200x200"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>KeepUp</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2019/05/14/剑指Offer——二进制中-1-的个数/">http://yoursite.com/2019/05/14/剑指Offer——二进制中-1-的个数/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/剑指Offer/"># 剑指Offer</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2019/05/14/剑指Offer——旋转数组的最小数字/">剑指Offer——旋转数组的最小数字</a>
+            
+            
+            <a class="next" rel="next" href="/2019/05/11/Mac-下-Centos7-Minimal-版本虚拟机软件安装/">Mac-下-Centos7-Minimal-版本虚拟机软件安装</a>
+            
+        </section>
+        <br>
+        <br>
+        
+            <section id="comments" class="comments">
+                <style>
+                    .comments{margin:30px;padding:10px;background:#fff}
+                    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+                </style>
+                <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'true' == true ? true : false;
+  var verify = 'true' == true ? true : false;
+  new Valine({
+      el: '.valine_comment',
+      app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
+      app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
+      placeholder: '这里留言。。',
+      notify: notify,
+      verify: verify
+    });
+</script>
+
+
+            </section>
+        
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© KeepUp | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
