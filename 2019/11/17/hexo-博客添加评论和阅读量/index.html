@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="KeepUp">
+
+
+
+
+
+<title>hexo 博客添加评论和阅读量 | KeepUp&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">KeepUp&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">KeepUp&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">hexo 博客添加评论和阅读量</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">KeepUp</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 17, 2019&nbsp;&nbsp;13:17:59</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/博客搭建/">博客搭建</a>
+                            
+                        </span>
+                    
+                    <span id="/2019/11/17/hexo-博客添加评论和阅读量/" class="leancloud-visitors view" data-flag-title="hexo 博客添加评论和阅读量">
+                    <em class="post-meta-item-text">Pageviews:</em>
+                    <i class="leancloud-visitors-count">loading</i>
+                    </span>
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>说在最前面，最近刚发现一个好看的主题 <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank" rel="noopener">Chic</a>，然后果断就换了。效果很好。感谢作者。如果你们也喜欢的话，直接去GitHub项目，里边有安装文档，非常的简单。</p>
+<p>附上我的<a href="https://caixiaobai.github.io">博客地址</a>，欢迎参观。</p>
+<p>评论和文章阅读量统计经过对比之后选用的都是 <a href="https://valine.js.org" target="_blank" rel="noopener">Veline</a>。</p>
+</blockquote>
+<h4 id="添加评论"><a href="#添加评论" class="headerlink" title="添加评论"></a>添加评论</h4><h5 id="获取-APP-ID-和-APP-Key"><a href="#获取-APP-ID-和-APP-Key" class="headerlink" title="获取 APP ID 和 APP Key"></a>获取 APP ID 和 APP Key</h5><p>首先需要注册一个 <a href="https://leancloud.cn/dashboard/login.html#/signup" target="_blank" rel="noopener">LeanCloud</a> 账号，然后进入控制台，点击左下角创建应用。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g90zb67yz9j30h40coaak.jpg" alt="img"></p>
+<p>随便起个名字，选择<strong>开发版</strong>，然后创建就可以了。创建完成之后，进入刚刚创建的应用，选择<strong>设置</strong>-&gt;<strong>应用Key</strong>，然后你就能找到 APP ID 和 APP Key 了。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g90zebzciuj30xe0etjt4.jpg" alt="img"></p>
+<h5 id="主题-config-yml-文件内增加配置"><a href="#主题-config-yml-文件内增加配置" class="headerlink" title="主题 _config.yml 文件内增加配置"></a>主题 _config.yml 文件内增加配置</h5><p>在主题目录下的 _config.yml 的文件中添加 valine 配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">valine:</span></span><br><span class="line"><span class="attr"> appid:</span>  <span class="comment">#Leancloud应用的appId</span></span><br><span class="line"><span class="attr"> appkey:</span>  <span class="comment">#Leancloud应用的appKey</span></span><br><span class="line"><span class="attr"> verify:</span> <span class="literal">true</span> <span class="comment">#验证码</span></span><br><span class="line"><span class="attr"> notify:</span> <span class="literal">true</span> <span class="comment">#评论回复提醒</span></span><br><span class="line"><span class="attr"> placeholder:</span> <span class="string">这里留言。。</span> <span class="comment">#评论框占位符</span></span><br></pre></td></tr></table></figure>
+<h5 id="添加-valine-ejs-文件"><a href="#添加-valine-ejs-文件" class="headerlink" title="添加 valine.ejs 文件"></a>添加 valine.ejs 文件</h5><p>然后添加 valine.ejs 文件，我放到了 layout/_plugins/ 文件夹下，文件的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;valine_comment&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;!--载入js，在&lt;/body&gt;之前插入即可--&gt;</span><br><span class="line">&lt;!--Leancloud 操作库:--&gt;</span><br><span class="line">&lt;script src=&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;!--Valine 的核心代码库--&gt;</span><br><span class="line">&lt;script src=&quot;//unpkg.com/valine/dist/Valine.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  new Valine(&#123;</span><br><span class="line">      el: &apos;.valine_comment&apos;,</span><br><span class="line">      app_id: &apos;&lt;%= theme.valine.appid %&gt;&apos;,</span><br><span class="line">      app_key: &apos;&lt;%= theme.valine.appkey %&gt;&apos;,</span><br><span class="line">      placeholder: &apos;&lt;%= theme.valine.placeholder %&gt;&apos;,</span><br><span class="line">      notify: &apos;&lt;%= theme.valine.notify %&gt;&apos;,</span><br><span class="line">      verify: &apos;&lt;%= theme.valine.verify %&gt;&apos;,</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="添加调用代码"><a href="#添加调用代码" class="headerlink" title="添加调用代码"></a>添加调用代码</h5><p>在你的文章的 ejs 文件中添加评论的代码，我使用的这个主题是在 layout/_page/post.ejs 文件中添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (theme.valine &amp;&amp; theme.valine.appid &amp;&amp; theme.valine.appkey)&#123; %&gt;</span><br><span class="line">    &lt;section id=&quot;comments&quot; class=&quot;comments&quot;&gt;</span><br><span class="line">      &lt;style&gt;</span><br><span class="line">        .comments&#123;margin:30px;padding:10px;background:#fff&#125;</span><br><span class="line">        @media screen and (max-width:800px)&#123;.comments&#123;margin:auto;padding:10px;background:#fff&#125;&#125;</span><br><span class="line">      &lt;/style&gt;</span><br><span class="line">      &lt;%- partial(&apos;_plugins/valine&apos;, &#123;</span><br><span class="line">        key: post.slug,</span><br><span class="line">        title: post.title,</span><br><span class="line">        url: config.url+url_for(post.path)</span><br><span class="line">      &#125;) %&gt;</span><br><span class="line">    &lt;/section&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="重新部署然后查看"><a href="#重新部署然后查看" class="headerlink" title="重新部署然后查看"></a>重新部署然后查看</h5><p>然后你重新部署你的博客，就可以在文章底部看到评论框了。支持表情和 markdown 语法。还是非常好用的，不过免费版好像每天有次数关系和总的空间大小限制。不过对于我这种自己的博客是完全够用的。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g910cqtcnlj314a0u0wfj.jpg" alt="image-20191117141317970"></p>
+<h4 id="添加文章的阅读量"><a href="#添加文章的阅读量" class="headerlink" title="添加文章的阅读量"></a>添加文章的阅读量</h4><p>阅读量同样是用的 valine。</p>
+<h5 id="主题-config-yml-文件内增加配置-1"><a href="#主题-config-yml-文件内增加配置-1" class="headerlink" title="主题 _config.yml 文件内增加配置"></a>主题 _config.yml 文件内增加配置</h5><p>在主题目录下的 _config.yml 的文件中添加阅读量配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">valine:</span></span><br><span class="line"><span class="attr"> appid:</span>  <span class="comment">#Leancloud应用的appId</span></span><br><span class="line"><span class="attr"> appkey:</span>  <span class="comment">#Leancloud应用的appKey</span></span><br><span class="line"><span class="attr"> verify:</span> <span class="literal">true</span> <span class="comment">#验证码</span></span><br><span class="line"><span class="attr"> notify:</span> <span class="literal">true</span> <span class="comment">#评论回复提醒</span></span><br><span class="line"><span class="attr"> placeholder:</span> <span class="string">这里留言。。</span> <span class="comment">#评论框占位符</span></span><br><span class="line"><span class="attr"> visitor:</span> <span class="literal">true</span>	<span class="comment">#阅读量统计</span></span><br></pre></td></tr></table></figure>
+<p>如果开启了<code>阅读量统计</code>，Valine 会<code>自动检测</code> leancloud 应用中是否存在<code>Counter</code>类，如果不存在<code>会自动创建</code>，<strong>无需手动创建</strong>~</p>
+<h5 id="valine-ejs-文件中加入评论配置"><a href="#valine-ejs-文件中加入评论配置" class="headerlink" title="valine.ejs 文件中加入评论配置"></a>valine.ejs 文件中加入评论配置</h5><p>然后添加 valine.ejs 文件，我放到了 layout/_plugins/ 文件夹下，文件的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;valine_comment&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;!--载入js，在&lt;/body&gt;之前插入即可--&gt;</span><br><span class="line">&lt;!--Leancloud 操作库:--&gt;</span><br><span class="line">&lt;script src=&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;!--Valine 的核心代码库--&gt;</span><br><span class="line">&lt;script src=&quot;//unpkg.com/valine/dist/Valine.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  new Valine(&#123;</span><br><span class="line">      el: &apos;.valine_comment&apos;,</span><br><span class="line">      app_id: &apos;&lt;%= theme.valine.appid %&gt;&apos;,</span><br><span class="line">      app_key: &apos;&lt;%= theme.valine.appkey %&gt;&apos;,</span><br><span class="line">      placeholder: &apos;&lt;%= theme.valine.placeholder %&gt;&apos;,</span><br><span class="line">      notify: &apos;&lt;%= theme.valine.notify %&gt;&apos;,</span><br><span class="line">      verify: &apos;&lt;%= theme.valine.verify %&gt;&apos;,</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="添加调用代码-1"><a href="#添加调用代码-1" class="headerlink" title="添加调用代码"></a>添加调用代码</h5><p>在你的文章的 ejs 文件中添加评论的代码，我使用的这个主题是在 layout/_page/post.ejs 文件中合适位置添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=&quot;&lt;%- url_for(post.path) %&gt;&quot; class=&quot;leancloud-visitors view&quot; data-flag-title=&quot;&lt;%= post.title %&gt;&quot;&gt;</span><br><span class="line">  &lt;em class=&quot;post-meta-item-text&quot;&gt;Pageviews:&lt;/em&gt;</span><br><span class="line">  &lt;i class=&quot;leancloud-visitors-count&quot;&gt;loading&lt;/i&gt;</span><br><span class="line">&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+<p>Valine会自动查找页面中<code>class</code>值为<code>leancloud_visitors</code>的元素，获取其<code>id</code>为查询条件。并将得到的值填充到其<code>class</code>的值为<code>leancloud-visitors-count</code>的子元素里。</p>
+<h5 id="重新部署然后查看-1"><a href="#重新部署然后查看-1" class="headerlink" title="重新部署然后查看"></a>重新部署然后查看</h5><p>然后你就可以找到阅读量的显示了，每次刷新页面，就会加1。</p>
+<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g9111crr62j316q082wfv.jpg" alt="image-20191117143659225"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>KeepUp</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="https://caixiaobai.github.io/2019/11/17/hexo-博客添加评论和阅读量/">https://caixiaobai.github.io/2019/11/17/hexo-博客添加评论和阅读量/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY<strong>?</strong></strong></span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/hexo/"># hexo</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/06/24/数据结构与算法——散列表/">数据结构与算法——散列表</a>
+            
+        </section>
+        <br>
+        <br>
+        
+            <section id="comments" class="comments">
+                <style>
+                    .comments{margin:30px;padding:10px;background:#fff}
+                    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+                </style>
+                <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  var notify = 'true' == true ? true : false;
+  var verify = 'true' == true ? true : false;
+  new Valine({
+      el: '.valine_comment',
+      app_id: '1Qj3CXptpcpw7XAz9EPmXauf-gzGzoHsz',
+      app_key: 'qIssNTxbETWeH7FA5xNAMJnj',
+      placeholder: '这里留言。。',
+      notify: 'true',
+      verify: 'true',
+      visitor: 'true',
+      avatar: 'wavatar'
+    });
+</script>
+
+
+            </section>
+        
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© KeepUp | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
